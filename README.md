@@ -1,4 +1,5 @@
-#Change made in VS Code
+# Change made in VS Code
+This is cool
 
 # Getting Started with Create React App
 
