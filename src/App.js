@@ -76,7 +76,7 @@ const handleSubmit = (e)=>{
             
             
             <p className='small'>
-              ¿Problemas para ingresar? <a href="">Contacta al Administrador</a>
+              ¿Problemas para ingresar? <a href="mailto:jcrc@sirius-tec.com">Contacta al Administrador</a>
             </p>
             
             </form> : null}
@@ -86,6 +86,7 @@ const handleSubmit = (e)=>{
           <div className="col-12">{currentUser && currentUser.role === "EMPRESA" ? <View_Empresa user={currentUser}/> : null}</div>
           <div className="col-12">{currentUser && currentUser.role === "RETADOR" ? <View_Retador user={currentUser}/> : null}</div>
       </div>
+      
     </div>
 
     
