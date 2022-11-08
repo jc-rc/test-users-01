@@ -1,83 +1,52 @@
-import React, { useEffect, useState } from 'react'
-import CalendarForm from './Components/CalendarForm'
-import PostForm from "./Components/PostForm"
+import React, {useState, useEffect} from 'react'
 import UserForm from './Components/UserForm'
 import UserTable from './Components/UserTable'
 import Calendar from './Components/Calendar'
+import CalendarForm from './Components/CalendarForm'
 import PostList from './Components/PostList'
+import PostForm from './Components/PostForm'
 
-
-function View_Admin(props) {
-
+function View_Organizador(props) {
 
     useEffect(() => {
-        fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
-            .then(response => response.json())
-            .then(data => setOptions(data))
-
-        
+         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${props.user.hkt}`)
+         .then(response => response.json())
+         .then(data => setEmpresasOptions(data))
 
     }, [])
 
-    useEffect(()=>{
-        
-    }, [])
-
-    const [hkt, setHkt] = useState()
-    const [options, setOptions] = useState([])
     const [empresa, setEmpresa] = useState()
     const [empresasOptions, setEmpresasOptions] = useState([])
-
 
     const handlePress = () => {
         document.location.reload()
     }
-
-    const handleHKTChange = (e) => {
-
-        setHkt(e.target.value)
-
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${hkt}`)
-        .then(response => response.json())
-        .then(data => setEmpresasOptions(data))
-    }
-    const handleEmpresaChange = (e) => {
+const handleEmpresaChange = (e) => {
 
         setEmpresa(e.target.value)
     }
 
 
-    return (
-        <div>
-            <div className="row">
+  return (
+    <div>
+        <div className="row">
                 <div className="col-10">
-                    <p className="h2">Back Office ADMIN</p>
+                    <p className="h2">Back Office ORGANIZADOR</p>
                 </div>
                 <div className="col-2">
                     <button className='btn btn-outline-danger' onClick={handlePress}><i className="fas fa-door-open"></i></button>
                 </div>
             </div>
             <div className="row">
-                <p>Bienvenido {props.user.username}</p>
-            </div>
-            <div className="row d-flex justify-content-center mb-5">
-
-                <div className="col-md-6">
-                    <p>Maneja el HACKATON:</p>
-                    <select className='form-select' name="" id="" onChange={handleHKTChange}>
-                        <option hidden value="">Selecciona el Evento</option>
-                        {options.map((option, key) => {
-                            return (
-                                <option key={key} value={option}>{option}</option>
-                            )
-                        })}
-                    </select>
+                <div className="col-3">
+                    <p>Bienvenido, {props.user.username}</p>
                 </div>
-
-
+                <div className="col-3">
+                    <p>Organizas el evento: {props.user.hkt}</p>
+                </div>
             </div>
 
-            {hkt && <div className="container">
+            { <div className="container">
                 {/* MENÚ DE NAVEGACIÓN */}
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -93,21 +62,21 @@ function View_Admin(props) {
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                         <div className="row py-4 d-flex justify-content-between">
                             <div className="col-12 col-md-8">
-                                <UserTable event={hkt}></UserTable>
+                                <UserTable event={props.user.hkt}></UserTable>
                             </div>
 
                             <div className="col-12 col-md-3">
-                                <UserForm event={hkt}></UserForm>
+                                <UserForm event={props.user.hkt}></UserForm>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                         <div className="row py-4 d-flex justify-content-between">
                             <div className="col-12 col-md-8">
-                                <Calendar event={hkt}></Calendar>
+                                <Calendar event={props.user.hkt}></Calendar>
                             </div>
                             <div className="col-12 col-md-3">
-                                <CalendarForm event={hkt}></CalendarForm>
+                                <CalendarForm event={props.user.hkt}></CalendarForm>
                             </div>
                         </div>
                     </div>
@@ -127,10 +96,10 @@ function View_Admin(props) {
                         </div>
                         {empresa&&<div className="row py-4 d-flex justify-content-between">
                             <div className="col-12 col-md-8">
-                                <PostList event={hkt} empresa={empresa}></PostList>
+                                <PostList event={props.user.hkt} empresa={empresa}></PostList>
                             </div>
                             <div className="col-12 col-md-3">
-                                <PostForm event={hkt} empresa={empresa}></PostForm>
+                                <PostForm event={props.user.hkt} empresa={empresa}></PostForm>
                             </div>
                         </div>}
                     </div>
@@ -139,10 +108,8 @@ function View_Admin(props) {
             </div>}
 
 
-
-
-        </div>
-    )
+    </div>
+  )
 }
 
-export default View_Admin
+export default View_Organizador

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import View_Admin from './View_Admin';
 import View_Empresa from './View_Empresa';
 import View_Retador from './View_Retador';
+import View_Organizador from './View_Organizador';
 
 function App() {
 
@@ -85,6 +86,7 @@ const handleSubmit = (e)=>{
           <div className="col-12" id="admin">{currentUser && currentUser.role === "ADMIN" ? <View_Admin user={currentUser}/> : null}</div>
           <div className="col-12">{currentUser && currentUser.role === "EMPRESA" ? <View_Empresa user={currentUser}/> : null}</div>
           <div className="col-12">{currentUser && currentUser.role === "RETADOR" ? <View_Retador user={currentUser}/> : null}</div>
+          <div className="col-12">{currentUser && currentUser.role === "ORGANIZADOR" ? <View_Organizador user={currentUser}/> : null}</div>
       </div>
       
     </div>

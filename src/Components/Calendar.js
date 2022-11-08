@@ -16,7 +16,7 @@ function Calendar(props) {
 
   return (
     <div className=" border">
-    <p className='h3'>Calendario:</p>
+    <p className='h3'>Calendario: {props.event}</p>
     <ul className="list-group">
         {events.map((cEvent, key)=>{
             return(
