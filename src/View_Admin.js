@@ -5,6 +5,8 @@ import UserForm from './Components/UserForm'
 import UserTable from './Components/UserTable'
 import Calendar from './Components/Calendar'
 import PostList from './Components/PostList'
+import CalendarTable from './Components/CalendarTable'
+import PostTable from './Components/PostTable'
 
 
 function View_Admin(props) {
@@ -103,8 +105,11 @@ function View_Admin(props) {
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                         <div className="row py-4 d-flex justify-content-between">
-                            <div className="col-12 col-md-8">
+                            {/* <div className="col-12 col-md-8">
                                 <Calendar event={hkt}></Calendar>
+                            </div> */}
+                            <div className="col-12 col-md-8">
+                                <CalendarTable event={hkt}></CalendarTable>
                             </div>
                             <div className="col-12 col-md-3">
                                 <CalendarForm event={hkt}></CalendarForm>
@@ -115,6 +120,7 @@ function View_Admin(props) {
 
                         <div className="row d-flex justify-content-center my-3">
                             <div className="col-md-6">
+                                <p>Empresa:</p>
                                 <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
                                     <option hidden value="">Selecciona la Empresa</option>
                                     {empresasOptions.map((option, key) => {
@@ -126,8 +132,11 @@ function View_Admin(props) {
                             </div>
                         </div>
                         {empresa&&<div className="row py-4 d-flex justify-content-between">
-                            <div className="col-12 col-md-8">
+                            {/* <div className="col-12 col-md-8">
                                 <PostList event={hkt} empresa={empresa}></PostList>
+                            </div> */}
+                            <div className="col-12 col-md-8">
+                                <PostTable event={hkt} empresa={empresa}></PostTable>
                             </div>
                             <div className="col-12 col-md-3">
                                 <PostForm event={hkt} empresa={empresa}></PostForm>
