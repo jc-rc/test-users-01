@@ -13,15 +13,12 @@ import UserFormEdit from './Components/UserFormEdit'
 function View_Admin(props) {
 
     const [hkt, setHkt] = useState("")
-    const [idEdit, setidEdit] = useState("")
+    
 
     useEffect(() => {
         fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
             .then(response => response.json())
             .then(data => setOptions(data))
-
-
-
     }, [hkt])
 
     useEffect(() => {
@@ -52,6 +49,8 @@ function View_Admin(props) {
         setEmpresa(e.target.value)
     }
 
+   
+
 
     return (
         <div>
@@ -79,8 +78,6 @@ function View_Admin(props) {
                         })}
                     </select>
                 </div>
-
-
             </div>
 
             {hkt && <div className="container">
@@ -101,7 +98,7 @@ function View_Admin(props) {
                         <div className="row py-4 d-flex justify-content-between">
                             
                             <div className="col-12">
-                                <UserTable event={hkt}></UserTable>
+                                <UserTable event={hkt} empresasOptions={empresasOptions}></UserTable>
                             </div>
 
                             {/* <div className="col-12 col-md-3">

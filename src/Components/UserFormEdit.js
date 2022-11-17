@@ -5,12 +5,27 @@ function UserFormEdit(props) {
     useEffect(()=>{
         document.getElementById("userFormEdit").reset()
         //Poblar los campos del formulario
-        setForm(props.initValues)
+        setForm({
+            _id: props.initValues._id,
+            username: props.initValues.username,
+            password: props.initValues.password,
+            role: props.initValues.role,
+            hkt: props.event,
+            team1: props.initValues.team[0] === undefined ? "" : props.initValues.team[0] ,
+            team2: props.initValues.team[1] === undefined ? "" : props.initValues.team[1] ,
+            team3: props.initValues.team[2] === undefined ? "" : props.initValues.team[2] ,
+            team4: props.initValues.team[3] === undefined ? "" : props.initValues.team[3] ,
+            team5: props.initValues.team[4] === undefined ? "" : props.initValues.team[4] ,
+            empresa_ret: props.initValues.empresa_ret,
+            email: props.initValues.email,
+            tel: props.initValues.tel
+        })
 
 
     }, [props.initValues, props.event])
 
     const [form, setForm] = useState({
+        _id: "",
         username: "",
         password: "",
         role: "",
@@ -81,17 +96,32 @@ function UserFormEdit(props) {
        
         //Lógica de ACTUALIZAR usuario en DB
 
-   fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}`,
-        {method:"POST"})
-        .then(response => response? alert("User Created"): null)
+   fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/updateUser?_id=${form._id}&username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&empresa_ret=${form.empresa_ret}&email=${form.email}&tel=${form.tel}`,
+        {method:"PUT"})
+        .then(response => response? alert("User Modified"): null)
         .then( document.getElementById("userFormEdit").reset())
-        .then(setForm({hkt: props.event}))
+        .then( document.querySelector(".cerrar-modal-edit").click())
+        
 
     }
 
     
     const handleReset = ()=>{
-        setForm({hkt: props.event})
+        setForm({
+            _id: props.initValues._id,
+            username: props.initValues.username,
+            password: props.initValues.password,
+            role: props.initValues.role,
+            hkt: props.event,
+            team1: props.initValues.team[0] === undefined ? "" : props.initValues.team[0] ,
+            team2: props.initValues.team[1] === undefined ? "" : props.initValues.team[1] ,
+            team3: props.initValues.team[2] === undefined ? "" : props.initValues.team[2] ,
+            team4: props.initValues.team[3] === undefined ? "" : props.initValues.team[3] ,
+            team5: props.initValues.team[4] === undefined ? "" : props.initValues.team[4] ,
+            empresa_ret: props.initValues.empresa_ret,
+            email: props.initValues.email,
+            tel: props.initValues.tel
+        })
     }
 
 
@@ -135,7 +165,15 @@ function UserFormEdit(props) {
                       <div>
                           <div className="mb-3">
                               <label className='form-label' htmlFor="">Empresa Retada:</label>
-                              <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} value={form.empresa_ret}/>
+                              {/* <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} value={form.empresa_ret}/> */}
+                              <select className='form-select' name="" id="" onChange={handleEmpresaChange} value={form.empresa_ret}>
+                                    <option value="" hidden>Selecciona una Empresa</option>
+                                    {props.empresasOptions.map((option, key)=>{
+                                        return(
+                                            <option value={option} key={key}>{option}</option>
+                                        )
+                                    })}
+                              </select>
                           </div>
                           <div className="mb-3">
                               
@@ -143,23 +181,23 @@ function UserFormEdit(props) {
                                   
                                   <div className="input-group mb-1">
                                     <span className="input-group-text">#1</span>
-                                  <input className='form-control' type="text" id="0" placeholder='Líder del Equipo'  onChange={handleTeam1Change} value={form.team[0]}/>
+                                  <input className='form-control' type="text" id="0" placeholder='Líder del Equipo'  onChange={handleTeam1Change} value={form.team1}/>
                                   </div>
                                   <div className="input-group mb-1">
                                     <span className="input-group-text">#2</span>
-                                  <input className='form-control' type="text" id="1"  onChange={handleTeam2Change} value={form.team[1]}/>
+                                  <input className='form-control' type="text" id="1"  onChange={handleTeam2Change} value={form.team2}/>
                                   </div>
                                   <div className="input-group mb-1">
                                     <span className="input-group-text">#3</span>
-                                  <input className='form-control' type="text" id="2"  onChange={handleTeam3Change} value={form.team[2]}/>
+                                  <input className='form-control' type="text" id="2"  onChange={handleTeam3Change} value={form.team3}/>
                                   </div>
                                   <div className="input-group mb-1">
                                     <span className="input-group-text">#4</span>
-                                  <input className='form-control' type="text" id="3"  onChange={handleTeam4Change} value={form.team[3]}/>
+                                  <input className='form-control' type="text" id="3"  onChange={handleTeam4Change} value={form.team4}/>
                                   </div>
                                   <div className="input-group mb-1">
                                     <span className="input-group-text">#5</span>
-                                  <input className='form-control' type="text" id="4"  onChange={handleTeam5Change} value={form.team[4]}/>
+                                  <input className='form-control' type="text" id="4"  onChange={handleTeam5Change} value={form.team5}/>
                                   </div>
                                   
                                  

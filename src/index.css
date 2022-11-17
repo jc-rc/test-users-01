@@ -15,4 +15,5 @@ code {
 .list-group-item:hover{
   background-color: darkgrey;
   color: white;
+  cursor: pointer;
 }

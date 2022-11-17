@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import UserForm from './UserForm'
 import UserFormEdit from './UserFormEdit'
+import UserDetail from './UserDetail'
 
 function UserTable(props) {
 
     const [data, setData] = useState([])
 
-    const [userToSend, setuserToSend] = useState({})
+    const [userToSend, setuserToSend] = useState()
 
 
     useEffect(() => {
@@ -17,6 +18,18 @@ function UserTable(props) {
 
     const handleEditButton = (user)=>{
         setuserToSend(user)
+    }
+    const handleDeleteButton = (user)=>{
+        console.log(user);
+        let confirmDelete = window.confirm(`⚠ ¿En verdad desea eliminar el usuario: ⚠ \n ${user.username}? `)
+        if (confirmDelete) {
+            fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deleteUser?_id=${user._id}`,
+            {method: "DELETE"})
+            .then(response => response.status <300 ? alert(`Se eliminó el usuario: ${user.username}, con id: ${user._id}`): alert("Algo salió mal..."))
+            
+        }else{
+            alert(`Se canceló la operación.`)
+        }
     }
 
 
@@ -31,7 +44,8 @@ function UserTable(props) {
 
             <div className="row d-none d-md-flex p-2">
                 <div className="col fw-bold">Nombre</div>
-                <div className="col-2 fw-bold">Rol</div>
+                <div className="col fw-bold">Rol</div>
+                <div className="col fw-bold">Empresa Ret.</div>
                 <div className="col-3 fw-bold">Correo</div>
                 <div className="col-2 fw-bold">Teléfono</div>
                 <div className="col-1 fw-bold">Editar</div>
@@ -57,10 +71,12 @@ function UserTable(props) {
                             break;
                     }
                     return (
-                        <div className="row list-group-item p-1 d-flex align-items-center justify-content-center" id={user._id} key={key}>
+                        <div className="row list-group-item p-1 d-flex align-items-center justify-content-center" id={user._id} key={key} data-bs-toggle="modal" data-bs-target="#modal-detail-user" onClick={()=> handleEditButton(user)}>
                             <div className="col-md col-7 mb-2"><p className="h6 m-0">{user.username}</p></div>
 
-                            <div className="col-md-2 col-5 mb-2"><span className={"badge text-bg-" + badgeColor}>{user.role}</span></div>
+                            <div className="col-md col-5 mb-2"><span className={"badge text-bg-" + badgeColor}>{user.role}</span></div>
+
+                            <div className="col-md col-7 mb-2"><p className="h6 m-0">{user.empresa_ret}</p></div>
 
                             <div className="col-md-3 col-7 mb-2"><a href={"mailto:" + user.email}>{user.email}</a></div>
 
@@ -72,7 +88,8 @@ function UserTable(props) {
                                 </button>
                             </div>
 
-                            <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-danger w-100"><i className="fa-solid fa-trash-can"></i></button></div>
+                            <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-danger w-100" onClick={()=> handleDeleteButton(user) }>
+                                <i className="fa-solid fa-trash-can"></i></button></div>
                         </div>
                     )
                 })}
@@ -84,10 +101,10 @@ function UserTable(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <p className="modal-title h3" id="staticBackdropLabel">Añadir Usuario</p>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close cerrar-modal" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <UserForm event={props.event}></UserForm>
+                            <UserForm event={props.event} empresasOptions={props.empresasOptions}></UserForm>
                         </div>
 
                     </div>
@@ -95,21 +112,36 @@ function UserTable(props) {
             </div>}
 
             {/* <!-- Modal EDIT USER --> */}
-            {props.event && <div className="modal fade" id="modal-edit-user" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {props.event && userToSend && <div className="modal fade" id="modal-edit-user" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
                             <p className="modal-title h3" id="staticBackdropLabel">Editar Usuario</p>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close cerrar-modal-edit" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <UserFormEdit event={props.event} initValues={userToSend}></UserFormEdit>
+                            <UserFormEdit event={props.event} initValues={userToSend} empresasOptions={props.empresasOptions}></UserFormEdit>
                         </div>
 
                     </div>
                 </div>
             </div>}
 
+            {/* MODAL DETAIL VIEW */}
+            {props.event && userToSend && <div className="modal fade" id="modal-detail-user" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <p className="modal-title h3" id="staticBackdropLabel">Detalle Usuario</p>
+                            <button type="button" className="btn-close cerrar-modal-detalle" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <UserDetail event={props.event} initValues={userToSend} empresasOptions={props.empresasOptions}></UserDetail>
+                        </div>
+
+                    </div>
+                </div>
+            </div>}
 
         </div>
     )

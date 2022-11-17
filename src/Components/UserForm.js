@@ -87,6 +87,7 @@ function UserForm(props) {
         .then(response => response? alert("User Created"): null)
         .then( document.getElementById("userForm").reset())
         .then(setForm({hkt: props.event}))
+        .then( document.querySelector(".cerrar-modal").click())
 
     }
 
@@ -136,7 +137,15 @@ function UserForm(props) {
                       <div>
                           <div className="mb-3">
                               <label className='form-label' htmlFor="">Empresa Retada:</label>
-                              <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} />
+                              {/* <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} /> */}
+                              <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
+                                    <option value="" hidden>Selecciona una Empresa</option>
+                                    {props.empresasOptions.map((option, key)=>{
+                                        return(
+                                            <option value={option} key={key}>{option}</option>
+                                        )
+                                    })}
+                              </select>
                           </div>
                           <div className="mb-3">
                               
