@@ -12,8 +12,17 @@ code {
     monospace;
 }
 
-.list-group-item:hover{
+/* .list-group-item:hover{
   background-color: darkgrey;
   color: white;
   cursor: pointer;
+} */
+
+[role="button"]{
+  padding: 1px 1px;
+  border: none;
+}
+
+.h1,.h2,.h3,.h4,.h5.h6{
+  margin-bottom: 0px;
 }

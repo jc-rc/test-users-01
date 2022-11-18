@@ -36,9 +36,8 @@ function PostForm(props) {
      .then((response)=> {
         response? alert("Post Added") : alert("ERROR")
     })
-     .then(
-        document.getElementById("postForm").reset()
-     )
+    .then( document.getElementById("postForm").reset())
+        .then( document.querySelector(".cerrar-modal-post").click())
 
         //ALERT O ALGÚN FEEDBACK
          
@@ -52,25 +51,34 @@ function PostForm(props) {
         setForm({...form, contenido: e.target.value})
     }
 
+    const handleReset = (e)=>{
+        setForm({hkt: props.event,
+            autor: props.empresa,
+            fecha: `${currentDate}`,
+            título: "",
+            contenido: ""
+        })
+    }
+
+
 
    
 
   return (
     <div className="row">
-        <form action="" onSubmit={handleSubmit} id="postForm">
-            <p className="h3">Create New Post:</p>
-            <hr />
+        <form action="" onSubmit={handleSubmit} id="postForm" onReset={handleReset}>
+            
             <div className="mb-3">
                 <label htmlFor="" className="form-label">Autor:</label>
                 <input type="text" className='form-control' name='autor' value={form.autor} disabled /> 
             </div>
             <div className="mb-3">
                 <label htmlFor="" className="form-label">Título:</label>
-                <input type="text" className='form-control' required maxLength={30} placeholder="Máx. 30 caracteres"  onChange={handleTitleChange}/> 
+                <input type="text" className='form-control' required maxLength={30} value={form.título} placeholder="Máx. 30 caracteres"  onChange={handleTitleChange}/> 
             </div>
             <div className="mb-3">
                 <label htmlFor="" className="form-label">Contenido:</label>
-                <textarea className='form-control' style={{height: 200}} required maxLength={300} placeholder="Máx. 300 caracteres" onChange={handleContentChange}></textarea>
+                <textarea className='form-control' style={{height: 200}} required maxLength={300} value={form.contenido} placeholder="Máx. 300 caracteres" onChange={handleContentChange}></textarea>
             </div>
             <button className="btn btn-primary float-end" type='submit'>Create!</button>
             <button className="btn btn-outline-danger me-3 float-end" type='reset' >Clear</button>

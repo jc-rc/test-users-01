@@ -54,11 +54,11 @@ function View_Admin(props) {
 
     return (
         <div>
-            <div className="row">
-                <div className="col-10">
+            <div className="row d-flex justify-content-evenly">
+                <div className="col">
                     <p className="h2">Back Office ADMIN</p>
                 </div>
-                <div className="col-2">
+                <div className="col-2 text-end">
                     <button className='btn btn-outline-danger' onClick={handlePress}><i className="fas fa-door-open"></i></button>
                 </div>
             </div>
@@ -140,12 +140,12 @@ function View_Admin(props) {
                             {/* <div className="col-12 col-md-8">
                                 <PostList event={hkt} empresa={empresa}></PostList>
                             </div> */}
-                            <div className="col-12 col-md-8">
+                            <div className="col-12">
                                 <PostTable event={hkt} empresa={empresa}></PostTable>
                             </div>
-                            <div className="col-12 col-md-3">
+                            {/* <div className="col-12 col-md-3">
                                 <PostForm event={hkt} empresa={empresa}></PostForm>
-                            </div>
+                            </div> */}
                         </div>}
                     </div>
 

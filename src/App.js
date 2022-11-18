@@ -83,10 +83,17 @@ const handleSubmit = (e)=>{
             </form> : null}
           
         </div>
-          <div className="col-12" id="admin">{currentUser && currentUser.role === "ADMIN" ? <View_Admin user={currentUser}/> : null}</div>
-          <div className="col-12">{currentUser && currentUser.role === "EMPRESA" ? <View_Empresa user={currentUser}/> : null}</div>
-          <div className="col-12">{currentUser && currentUser.role === "RETADOR" ? <View_Retador user={currentUser}/> : null}</div>
-          <div className="col-12">{currentUser && currentUser.role === "ORGANIZADOR" ? <View_Organizador user={currentUser}/> : null}</div>
+          <div className="col-12 d-none d-md-block" id="admin">{currentUser && currentUser.role === "ADMIN" ? <View_Admin user={currentUser}/> : null}</div>
+          <div className="col-12 d-none d-md-block">{currentUser && currentUser.role === "EMPRESA" ? <View_Empresa user={currentUser}/> : null}</div>
+          <div className="col-12 d-none d-md-block">{currentUser && currentUser.role === "RETADOR" ? <View_Retador user={currentUser}/> : null}</div>
+          <div className="col-12 d-none d-md-block">{currentUser && currentUser.role === "ORGANIZADOR" ? <View_Organizador user={currentUser}/> : null}</div>
+          <div className="col-12 d-flex d-md-none">
+            <div className="row d-flex justify-content-center">
+                  <p className="h2">Oops..</p>
+                  <hr />
+                  <p>Para garantizar la mejor experiencia, le sugerimos visitar el sitio desde una PC o tablet.</p>
+            </div>
+            </div>
       </div>
       
     </div>

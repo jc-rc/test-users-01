@@ -71,16 +71,16 @@ function UserTable(props) {
                             break;
                     }
                     return (
-                        <div className="row list-group-item p-1 d-flex align-items-center justify-content-center" id={user._id} key={key} data-bs-toggle="modal" data-bs-target="#modal-detail-user" onClick={()=> handleEditButton(user)}>
-                            <div className="col-md col-7 mb-2"><p className="h6 m-0">{user.username}</p></div>
+                        <div className="row list-group-item p-1 d-flex align-items-center justify-content-center" id={user._id} key={key} >
+                            <div className="col-md col-7 mb-2"><a className="m-0 btn btn-outline-secondary text-start" role={"button"} data-bs-toggle="modal" data-bs-target="#modal-detail-user" onClick={()=> handleEditButton(user)}>{user.username}</a></div>
 
                             <div className="col-md col-5 mb-2"><span className={"badge text-bg-" + badgeColor}>{user.role}</span></div>
 
                             <div className="col-md col-7 mb-2"><p className="h6 m-0">{user.empresa_ret}</p></div>
 
-                            <div className="col-md-3 col-7 mb-2"><a href={"mailto:" + user.email}>{user.email}</a></div>
+                            <div className="col-md-3 col-7 mb-2"><a className='btn btn-outline-primary' role={"button"} href={"mailto:" + user.email}>{user.email}</a></div>
 
-                            <div className="col-md-2 col-5 mb-2"><a href={"tel:+52" + user.tel}>{user.tel}</a></div>
+                            <div className="col-md-2 col-5 mb-2"><a className='btn btn-outline-primary' role={"button"} href={"tel:+52" + user.tel}>{user.tel}</a></div>
 
                             <div className="col-md-1 col-6 text-center" >
                                 <button  onClick={()=>handleEditButton(user)} className="btn btn-outline-dark w-100" data-bs-toggle="modal" data-bs-target="#modal-edit-user" id={key}>
@@ -132,7 +132,7 @@ function UserTable(props) {
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <p className="modal-title h3" id="staticBackdropLabel">Detalle Usuario</p>
+                            <p className="modal-title h5" id="staticBackdropLabel">Detalle Usuario</p>
                             <button type="button" className="btn-close cerrar-modal-detalle" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
