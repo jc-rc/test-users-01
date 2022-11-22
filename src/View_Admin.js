@@ -112,12 +112,12 @@ function View_Admin(props) {
                             {/* <div className="col-12 col-md-8">
                                 <Calendar event={hkt}></Calendar>
                             </div> */}
-                            <div className="col-12 col-md-8">
+                            <div className="col-12 col-12">
                                 <CalendarTable event={hkt}></CalendarTable>
                             </div>
-                            <div className="col-12 col-md-3">
+                            {/* <div className="col-12 col-md-3">
                                 <CalendarForm event={hkt}></CalendarForm>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     {/* BLOG INTERNO */}

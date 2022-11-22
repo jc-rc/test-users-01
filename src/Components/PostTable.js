@@ -59,13 +59,13 @@ const handleDeleteButton = (post)=>{
           return(
             <div className="row d-flex justify-content-center list-group-item" id={post._id} key={key}>
                 <div className="col-2">
-                  <a className='btn btn-outline-secondary' role={"button"} data-bs-toggle="modal" data-bs-target="#modal-detail-post">{post.fecha}</a>
+                  <a className='btn btn-outline-secondary' role={"button"} data-bs-toggle="modal" data-bs-target="#modal-detail-post" onClick={()=> handleEditButton(post)}>{post.fecha}</a>
                 </div>
                 <div className="col-3">
                   <p>{post.título}</p>
                 </div>
-                <div className="col">
-                  <p>{post.contenido}</p>
+                <div className="col-5">
+                  <p className='truncado'>{post.contenido}</p>
                 </div>
                 <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-dark w-100" data-bs-toggle="modal" data-bs-target="#modal-edit-post" onClick={()=>handleEditButton(post)}><i className="fa-solid fa-pencil"></i></button></div>
                 <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-danger w-100" onClick={()=> handleDeleteButton(post)}><i className="fa-solid fa-trash-can"></i></button></div>
