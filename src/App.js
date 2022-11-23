@@ -53,7 +53,7 @@ const handleSubmit = (e)=>{
       <div className="row">
         <div className="col-12 d-flex justify-content-center">
           {!currentUser ? <form action="" style={{maxWidth: 600}} className="border p-4 rounded" onSubmit={handleSubmit}>
-            <h2>Bienvenido a Creatívika</h2>
+            <h2>Bienvenido a CREATIVIKA</h2>
             <div className="mb-3">
              
             </div>
