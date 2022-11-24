@@ -110,7 +110,7 @@ function UserForm(props) {
                 <div className="input-group">
                     <input className='form-control' type="password" id="pw" required onChange={handlePasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe incluir 1 número, 1 letra mayúscula, 1 letra minúscula; y al menos 8 caracteres" />
                     <button className='btn' type='button' id='btn-eye' tabIndex={-1}  onClick={setPasswordVisibility}>
-                        <span class="input-group-text" id="basic-addon1"><i id='eyecon' className="fas fa-eye-slash"></i></span>
+                        <span className="input-group-text" id="basic-addon1"><i id='eyecon' className="fas fa-eye-slash"></i></span>
                         </button>
                 </div>
             </div>

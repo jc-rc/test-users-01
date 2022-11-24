@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import CalendarForm from './Components/CalendarForm'
-import PostForm from "./Components/PostForm"
-import UserForm from './Components/UserForm'
 import UserTable from './Components/UserTable'
-import Calendar from './Components/Calendar'
-import PostList from './Components/PostList'
 import CalendarTable from './Components/CalendarTable'
 import PostTable from './Components/PostTable'
-import UserFormEdit from './Components/UserFormEdit'
+
 
 
 function View_Admin(props) {
@@ -94,7 +89,7 @@ function View_Admin(props) {
                 {/* CONTENIDO DE LAS PESTAÑAS */}
                 <div className="tab-content" id="nav-tabContent">
                     {/* USUARIOS */}
-                    <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                         <div className="row py-4 d-flex justify-content-between">
                             
                             <div className="col-12">
@@ -107,7 +102,7 @@ function View_Admin(props) {
                         </div>
                     </div>
                     {/* CALENDARIO */}
-                    <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
                         <div className="row py-4 d-flex justify-content-between">
                             {/* <div className="col-12 col-md-8">
                                 <Calendar event={hkt}></Calendar>
@@ -121,7 +116,7 @@ function View_Admin(props) {
                         </div>
                     </div>
                     {/* BLOG INTERNO */}
-                    <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                    <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
 
                         <div className="row d-flex justify-content-center my-3">
                             <div className="col-md-6">

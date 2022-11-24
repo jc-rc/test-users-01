@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CalendarForm from './CalendarForm'
+import CalendarFormEdit from './CalendarFormEdit'
 
 function CalendarTable(props) {
 
@@ -14,10 +15,19 @@ function CalendarTable(props) {
 
   const [events, setEvents] = useState([])
 
-  const [initValues, setInitValues] = useState({})
+  const [initValues, setInitValues] = useState({
+      hkt: props.event,
+      _id: "",
+      fecha:"",
+      eventos: [{hora:"", título:"", desc: ""}]
+  })
+  const [initKey, setInitKey] = useState(0)
+
+
 
   const handleEditButton = (event, key) => {
     setInitValues(event)
+    setInitKey(key)
     console.log("Editando Fecha @" + event.fecha, ", Evento #" + key)
 
   }
@@ -89,7 +99,7 @@ function CalendarTable(props) {
                 <div className="col">
                   <p className='small'>{sEvent.desc}</p>
                 </div>
-                <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-dark w-100" onClick={() => handleEditButton(event, key2)}><i className="fa-solid fa-pencil"></i></button></div>
+                <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-dark w-100" onClick={() => handleEditButton(event, key2)} data-bs-toggle="modal" data-bs-target="#modal-edit-event"><i className="fa-solid fa-pencil"></i></button></div>
                 <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-danger w-100" onClick={() => handleDeleteButton(event, key2)}><i className="fa-solid fa-trash-can" ></i></button></div>
               </div>
             )
@@ -119,6 +129,20 @@ function CalendarTable(props) {
         </div>
       </div>}
       {/* MODAL EDIT EVENT */}
+      {props.event && <div className="modal  fade" id="modal-edit-event" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <p className="modal-title h3" id="staticBackdropLabel">Editar Evento</p>
+              <button type="button" className="btn-close cerrar-modal-calendar-edit" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <CalendarFormEdit event={props.event} initValues={initValues} initKey={initKey}></CalendarFormEdit>
+            </div>
+
+          </div>
+        </div>
+      </div>}
       {/* MODAL DETAIL EVENT */}
 
     </div>
