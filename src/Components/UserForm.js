@@ -88,6 +88,9 @@ function UserForm(props) {
         .then( document.getElementById("userForm").reset())
         .then(setForm({hkt: props.event}))
         .then( document.querySelector(".cerrar-modal").click())
+        .then( setTimeout(() => {
+            document.querySelector("#view-admin-refresh").click()
+        }, 3000) )
 
     }
 

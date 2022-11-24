@@ -10,7 +10,7 @@ function CalendarTable(props) {
       .then(data => setEvents(data))
 
 
-  }, [props.event])
+  }, [props.event, props.dummy])
 
 
   const [events, setEvents] = useState([])
@@ -67,8 +67,8 @@ function CalendarTable(props) {
       <div className="row d-none d-md-flex p-2">
         <div className="col-2 fw-bold">Fecha</div>
         <div className="col-1 fw-bold">Hora</div>
-        <div className="col fw-bold">Título</div>
-        <div className="col fw-bold">Desc.</div>
+        <div className="col-3 fw-bold">Título</div>
+        <div className="col-4 fw-bold">Desc.</div>
         <div className="col-1 fw-bold">Editar</div>
         <div className="col-1 fw-bold">Borrar</div>
 
@@ -93,11 +93,11 @@ function CalendarTable(props) {
                 <div className="col-1">
                   <p>{sEvent.hora}</p>
                 </div>
-                <div className="col">
-                  <p className='small'>{sEvent.título}</p>
+                <div className="col-3">
+                  <p className='small truncado2'>{sEvent.título}</p>
                 </div>
-                <div className="col">
-                  <p className='small'>{sEvent.desc}</p>
+                <div className="col-4">
+                  <p className='small truncado2'>{sEvent.desc}</p>
                 </div>
                 <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-dark w-100" onClick={() => handleEditButton(event, key2)} data-bs-toggle="modal" data-bs-target="#modal-edit-event"><i className="fa-solid fa-pencil"></i></button></div>
                 <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-danger w-100" onClick={() => handleDeleteButton(event, key2)}><i className="fa-solid fa-trash-can" ></i></button></div>

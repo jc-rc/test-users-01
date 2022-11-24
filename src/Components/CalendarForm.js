@@ -39,7 +39,10 @@ function CalendarForm(props) {
             //Limpiar el formulario
             document.getElementById("eventForm").reset()
         }) 
-        .then( document.querySelector(".cerrar-modal-calendar").click())  
+        .then( document.querySelector(".cerrar-modal-calendar").click())
+        .then( setTimeout(() => {
+            document.querySelector("#view-admin-refresh").click()
+        }, 3000) )  
 
 
     }

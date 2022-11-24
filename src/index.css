@@ -33,3 +33,9 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.truncado2{
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -101,6 +101,9 @@ function UserFormEdit(props) {
         .then(response => response? alert("User Modified"): null)
         .then( document.getElementById("userFormEdit").reset())
         .then( document.querySelector(".cerrar-modal-edit").click())
+        .then( setTimeout(() => {
+            document.querySelector("#view-admin-refresh").click()
+        }, 3000) )
         
 
     }

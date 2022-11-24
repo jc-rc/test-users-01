@@ -38,8 +38,9 @@ function PostForm(props) {
     })
     .then( document.getElementById("postForm").reset())
         .then( document.querySelector(".cerrar-modal-post").click())
-
-        //ALERT O ALGÚN FEEDBACK
+        .then( setTimeout(() => {
+            document.querySelector("#view-admin-refresh").click()
+        }, 3000) )
          
     }
 

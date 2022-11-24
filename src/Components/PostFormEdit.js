@@ -31,6 +31,9 @@ function PostFormEdit(props) {
          .then(response => response? alert("Post Modified"): null)
          .then( document.getElementById("postFormEdit").reset())
          .then( document.querySelector(".cerrar-modal-post-edit").click())
+         .then( setTimeout(() => {
+            document.querySelector("#view-admin-refresh").click()
+        }, 3000) )
     }
     const handleReset = ()=>{
         setForm({

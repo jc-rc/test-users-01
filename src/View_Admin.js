@@ -8,6 +8,8 @@ import PostTable from './Components/PostTable'
 function View_Admin(props) {
 
     const [hkt, setHkt] = useState("")
+    const [dummy, setDummy] = useState(0)
+    
     
 
     useEffect(() => {
@@ -33,6 +35,12 @@ function View_Admin(props) {
         document.location.reload()
     }
 
+    const handleRefresh = ()=>{
+        setDummy(dummy=> dummy + 1)
+        console.log("Refresh");
+    }
+   
+
     const handleHKTChange = (e) => {
 
         setHkt(e.target.value)
@@ -42,6 +50,8 @@ function View_Admin(props) {
     const handleEmpresaChange = (e) => {
 
         setEmpresa(e.target.value)
+
+
     }
 
    
@@ -49,11 +59,13 @@ function View_Admin(props) {
 
     return (
         <div>
-            <div className="row d-flex justify-content-evenly">
+            <div className="row d-flex justify-content-end">
                 <div className="col">
                     <p className="h2">Back Office ADMIN</p>
                 </div>
-                <div className="col-2 text-end">
+                
+                <div className="col-2 d-flex justify-content-evenly">
+                    { hkt && <button className='btn btn-outline-primary' id='view-admin-refresh' onClick={handleRefresh}><i className="fas fa-arrows-rotate"></i></button>}
                     <button className='btn btn-outline-danger' onClick={handlePress}><i className="fas fa-door-open"></i></button>
                 </div>
             </div>
@@ -93,7 +105,7 @@ function View_Admin(props) {
                         <div className="row py-4 d-flex justify-content-between">
                             
                             <div className="col-12">
-                                <UserTable event={hkt} empresasOptions={empresasOptions}></UserTable>
+                                <UserTable event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
                             </div>
 
                             {/* <div className="col-12 col-md-3">
@@ -108,7 +120,7 @@ function View_Admin(props) {
                                 <Calendar event={hkt}></Calendar>
                             </div> */}
                             <div className="col-12 col-12">
-                                <CalendarTable event={hkt}></CalendarTable>
+                                <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
                             </div>
                             {/* <div className="col-12 col-md-3">
                                 <CalendarForm event={hkt}></CalendarForm>
@@ -136,7 +148,7 @@ function View_Admin(props) {
                                 <PostList event={hkt} empresa={empresa}></PostList>
                             </div> */}
                             <div className="col-12">
-                                <PostTable event={hkt} empresa={empresa}></PostTable>
+                                <PostTable event={hkt} empresa={empresa} dummy={dummy}></PostTable>
                             </div>
                             {/* <div className="col-12 col-md-3">
                                 <PostForm event={hkt} empresa={empresa}></PostForm>

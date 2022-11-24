@@ -10,7 +10,7 @@ function PostTable(props) {
         .then(response => response.json())
         .then(data => setPosts(data))
         
-}, [props.event, props.empresa])
+}, [props.event, props.empresa, props.dummy])
 
 
 const [posts, setPosts] = useState([])
@@ -30,6 +30,9 @@ const handleDeleteButton = (post)=>{
        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deletePost?_id=${post._id}`,
        {method: "DELETE"})
        .then(response => response.status <300 ? alert(`Se eliminó el post: ${post.título}, con id: ${post._id}`): alert("Algo salió mal..."))
+       .then( setTimeout(() => {
+        document.querySelector("#view-admin-refresh").click()
+    }, 3000) )
       
    }else{
        alert(`Se canceló la operación.`)

@@ -14,7 +14,7 @@ function UserTable(props) {
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/readUsersBy?hkt=${props.event}`)
             .then(response => response.json())
             .then(response => setData(response))
-    }, [props.event])
+    }, [props.event, props.dummy])
 
     const handleEditButton = (user)=>{
         setuserToSend(user)
@@ -26,6 +26,9 @@ function UserTable(props) {
             fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deleteUser?_id=${user._id}`,
             {method: "DELETE"})
             .then(response => response.status <300 ? alert(`Se eliminó el usuario: ${user.username}, con id: ${user._id}`): alert("Algo salió mal..."))
+            .then( setTimeout(() => {
+                document.querySelector("#view-admin-refresh").click()
+            }, 3000) )
             
         }else{
             alert(`Se canceló la operación.`)
