@@ -44,9 +44,10 @@ function CalendarTable(props) {
         .then(response => {
           if (response.modifiedCount === 0) {
             alert("No hay eventos en esta fecha; borrando la fecha...")
+            .then( setTimeout(() => {document.querySelector("#view-admin-refresh").click()}, 3000) ) 
           } else {
             alert("Evento Borrado")
-
+            .then( setTimeout(() => {document.querySelector("#view-admin-refresh").click()}, 3000) ) 
           }
         })
 
