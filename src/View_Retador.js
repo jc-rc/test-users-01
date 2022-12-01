@@ -1,9 +1,13 @@
 import React from 'react'
+import FileTable from './Components/FileTable'
 import PostList from './Components/PostList'
 import Calendar from './Components/Calendar'
+import FileForm from './Components/FileForm'
+
 
 function View_Retador(props) {
 
+ 
     const handlePress = ()=>{
         document.location.reload()
     }
@@ -21,39 +25,47 @@ function View_Retador(props) {
         <div className="row d-flex">
             <p className='h3'>Bienvenido, <span className='fw-bold'>{props.user.username}</span></p>
             <hr />
-            <p>Estás registrado en el evento: {props.user.hkt}</p>
+            
+           <div className="container">
+           <nav>
+                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Entregas</button>
+                        <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Calendario</button>
+                        <button className="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Blog Interno</button>
 
-            <div className="col-md-2 border">
-                <p className='h3'>Empresa Retadora:</p>
-                <p className='h5'>{props.user.empresa_ret}</p>
-                <hr />
-                <p className="h3">Tu Equipo: </p>
-                <ul className='list-group mb-3'>
-                {props.user.team.map((teammate, key)=>{
-                        return (<li className='list-group-item' key={key}>{teammate}</li> )
-                    })}
-                </ul>
-            </div>
 
-            
-            
-            
-            
-            <div className="col-md-5">
-                <Calendar event={props.user.hkt}></Calendar>
-            </div>
-            <div className="col-md-5">
-                <PostList event={props.user.hkt} empresa={props.user.empresa_ret}></PostList>
-            </div>
-            
-
-            <div className="col-md-5 border">
-                <p className='h3'>Archivos Enviados:</p>
-                <ul className="list-group">
-                    <li className='list-group-item text-primary'>PENDIENTE</li>
-                    <li className='list-group-item text-primary'>Primer_Avance.pdf</li>
-                </ul>
-            </div>
+                    </div>
+                </nav>
+                
+                  <div className="tab-content" id='nav-tabContent'>
+                        {/*  ARCHIVOS */}
+                      <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
+                            <div className="row py-4">
+                                <div className="col-8">
+                                    <FileTable user={props.user}></FileTable>
+                                </div>
+                                <div className="col-4">
+                                    <FileForm user={props.user}></FileForm>
+                                </div>
+                            </div>
+                      </div>
+                      <div className="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
+                            <div className="row py-4">
+                                <div className="col-12">
+                                    CALENDARIO
+                                </div>
+                            </div>
+                      </div>
+                      <div className="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
+                            <div className="row py-4">
+                                <div className="col-12">
+                                    BLOG
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+                
+           </div>
 
         </div>
     </div>
