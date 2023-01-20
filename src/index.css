@@ -39,3 +39,28 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+label{
+  margin: 0;
+}
+
+
+.texto-naranja{
+  color: #F06A15;
+}
+
+button, .naranja-ctvka {
+  background-color: #F06A15;
+  border-color: #F06A15;
+  
+}
+
+.btn-primary{
+  background-color: #F06A15;
+  border-color: #F06A15;
+}
+
+.btn-outline-primary{
+  color: #F06A15;
+  border-color: #F06A15;
+}

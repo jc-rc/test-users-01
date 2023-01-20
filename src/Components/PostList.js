@@ -11,7 +11,7 @@ function PostList(props) {
             .then(setLoading(false))
 
 
-    }, [props.event, props.empresa])
+    }, [props])
 
 
     const [posts, setPosts] = useState([])
@@ -21,8 +21,8 @@ function PostList(props) {
 
     return (
                 
-        <div className="col border">
-            <p className='h3'>Posts de {props.empresa}:</p>
+        <div className="col ">
+            <p className='h3 mb-3'>Posts de {props.empresa}:</p>
             <div className="row d-flex">
 
                 {loading  ? 
@@ -31,10 +31,10 @@ function PostList(props) {
                 </div>
                 : posts.map((post, key) => {
                     return (
-                        <div className="col-12 col-md-4" key={key}>
+                        <div className="col-12 col-md-6" key={key}>
                             <div className="card mb-2" >
                                 <div className="card-body">
-                                    <p className="card-title h6 mb-0">{post.título}</p>
+                                    <p className="card-title h5 mb-0">{post.título}</p>
                                     <p className="card-text small mb-2 fst-italic">Publicado: {post.fecha}</p>
                                     <p className="card-text small text-truncate">{post.contenido}</p>
                                 </div>

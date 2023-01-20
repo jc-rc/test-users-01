@@ -28,8 +28,8 @@ function FileForm(props) {
         .then()
         .then(alert("FILE ULPOADED"))
         .then( setTimeout(() => {
-          setDummy(dummy => dummy+1)
-      }, 1500) )
+            document.querySelector("#view-admin-refresh").click()
+      }, 500) )
         
         
       }

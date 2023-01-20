@@ -9,21 +9,21 @@ function Calendar(props) {
             .then(data => setEvents(data))
 
 
-    }, [props])
+    }, [props.dummy])
 
 
     const [events, setEvents] = useState([])
 
   return (
-    <div className=" border">
-    <p className='h3'>Calendario: {props.event}</p>
+    <div className=" ">
+    <p className='h3 mb-3'>Calendario: {props.event}</p>
     <ul className="list-group">
         {events.map((cEvent, key)=>{
-            return(
-                <div className="card p-2 mb-2" key={key}>
+            return( cEvent.eventos.length > 0 &&
+                <div className="card p-3 mb-2 list-group-item" key={key}>
                     <div className="row">
                         <div className="col-12">
-                            <p className="md-small h6 text-bg-danger p-2">{cEvent.fecha}</p>
+                            <p className="small h6 naranja-ctvka rounded text-light p-2"> <span className=''><i className="fa-regular fa-calendar-check"></i></span> {cEvent.fecha}</p>
                             <hr />
                         </div>
                         <div className="col-12">
@@ -33,7 +33,7 @@ function Calendar(props) {
                                 <dt className="col-12 col-md-3 mb-2">{evento.hora}hrs.</dt>
                                 <dd className="col-12 col-md-9">
                                     <p className='h6 mb-1 ms-4 ms-md-0'>
-                                        <span className='small'><i className="fa-regular fa-calendar-check"></i></span> {evento.título}</p>
+                                         {evento.título}</p>
                                     <p className='small ms-4 ms-md-0 mb-1 text-truncate'>{evento.desc}</p>
                                 </dd>
                             </dl>

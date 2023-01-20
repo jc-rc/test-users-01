@@ -4,71 +4,89 @@ import { ref, listAll, getDownloadURL, deleteObject } from "firebase/storage"
 
 function FileTable(props) {
 
-    const [user, setUser] = useState(props.user)
-    const [dummy, setDummy] = useState(0)
+
+    const [empresa, setEmpresa] = useState(props.empresa)
+    const [hkt, setHkt] = useState(props.event)
+    const [role, setRole] = useState(props.role)
+    var dataList = []
+    var linksList = []
+    var sortedLinks = []
 
     useEffect(() => {
         //LIST ALL FILES
-
         setLinks([])
         setData([])
 
-
-
-        listAll(ref(storage, `${user.hkt}/${user.empresa_ret}/${user.username}/`))
+        listAll(ref(storage, `${hkt}/${empresa}/${props.user}/`))
             .then(response => {
                 setData(response.items)
-                response.items.forEach(item => {
-                    getDownloadURL(item)
-                        .then(url => setLinks(prev => [...prev, url]))
-                })
-            })
-    }, [props.user, dummy])
+                response.items.map(
+                    item => {
+                        console.log(item)
+                        getDownloadURL(item)
+                            .then(url => setLinks(prev => [...prev, url]))
+
+                    }
+
+                )
+            }
+            )
+
+
+
+    }, [props.user, props.dummy, props.empresa, props.event])
+
 
     const [data, setData] = useState([])
     const [links, setLinks] = useState([])
 
 
-    const handleDelete = (e) => {
-        console.log(e.target.name + ".pdf");
-        const deleteRef = ref(storage, `${e.target.name}`)
 
-        if (window.confirm(`¿En realidad desea eliminar: el archivo?`)) {
-            deleteObject(deleteRef)
-                .then(alert("FILE DELETED"))
-                .then(setTimeout(() => {
-                    setDummy(dummy => dummy + 1)
-                }, 1500))
-        } else {
-            alert("Eliminación Cancelada")
-        }
+    const handleDelete = (e) => {
+        
+        console.log(e.target.dataset.path + ".pdf")
+
+         const deleteRef = ref(storage, `${e.target.dataset.path}`)
+
+         if (window.confirm(`¿En realidad desea eliminar: el archivo?`)) {
+             deleteObject(deleteRef)
+                 .then(alert("FILE DELETED"))
+                 .then(setTimeout(() => {
+                     document.querySelector("#view-admin-refresh").click()
+                 }, 2500))
+         } else {
+             alert("Eliminación Cancelada")
+         }
     }
 
 
     return (
-        <div className="col">
-            <p className="h3 mb-3">Archivos Subidos</p>
-            <ul className="list-group">
-                {links.length === 0 ? <p className="fst-italic">
-                    ¡No hay Archivos!
-                </p> :
-                    links.map((link, key) => {
-                        return (
-                            <li className="list-group-item" key={key}>
-                                <div className="row">
-                                    <div className="col-12 d-flex align-items-center justify-content-between">
-                                        <a href={link} target="_blank" download>{"Entrega " + data[key]._location.path_.substring(data[key]._location.path_.length - 10)}</a>
-                                        <button className="btn btn-outline-danger float-end" id={key} name={data[key]._location.path_} onClick={(e) => handleDelete(e)}>X</button>
+        <div className="row">
+            <div className="col-12">
+                <p className="h3 mb-3">Archivos Subidos:</p>
+                <div className="list-group">
+
+                    {links && data &&
+
+                        links.map((link, key) => {
+                            return (
+                                <div className="row d-flex list-group-item list-group-item-action" key={key}>
+                                    <div className="col-10">
+                                        <a href={link} target={"_blank"} className="">
+                                            <p className='text-break' >Entrega {data[key]._location.path_}</p>
+                                        </a>
                                     </div>
-
-
-
+                                    {role !== "RETADOR" && <div className="col-2">
+                                        <button className='btn btn-outline-danger float-end' style={{ zIndex: 999 }} data-path={data[key]._location.path_} onClick={(e) => handleDelete(e)}>X</button>
+                                    </div>}
                                 </div>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+                            )
+                        })
+
+                    }
+                </div>
+            </div>
+
         </div>
     )
 }
