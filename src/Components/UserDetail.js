@@ -53,7 +53,7 @@ function UserDetail(props) {
                         }else{
                             leaderText = ""
                         }
-                        return ( teammate != "undefined" ? <li className="list-group-item" key={key}><span className='badge small text-bg-success fst-italic me-1'>{leaderText}</span>{teammate} </li> : null )
+                        return ( teammate != "undefined" ? <li className="list-group-item" key={key}>{teammate} <span className='badge small text-bg-primary fst-italic fw-normal ms-1'>{leaderText}</span></li> : null )
                              })}
                                </ul>
               </div>

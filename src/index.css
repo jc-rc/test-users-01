@@ -55,12 +55,25 @@ button, .naranja-ctvka {
   
 }
 
-.btn-primary{
-  background-color: #F06A15;
+.btn-primary, .text-bg-primary{
+  background-color: #F06A15 !important;
   border-color: #F06A15;
+}
+.btn-primary:hover{
+  background-color: #424144;
+  border-color: #424144;
 }
 
 .btn-outline-primary{
   color: #F06A15;
   border-color: #F06A15;
+}
+
+.nav-pills .nav-link.active{
+  background-color: #F06A15!important;
+  color: white!important;
+}
+.nav-pills .nav-link{
+  color: #F06A15!important;
+  background-color: rgb(248,249,250)!important;
 }

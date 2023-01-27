@@ -3,6 +3,7 @@ import UserTable from './Components/UserTable'
 import CalendarTable from './Components/CalendarTable'
 import PostTable from './Components/PostTable'
 import FileTable from './Components/FileTable'
+import UserFormOrganizador from './Components/UserFormOrganizador'
 
 
 
@@ -17,7 +18,7 @@ function View_Admin(props) {
         fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
             .then(response => response.json())
             .then(data => setOptions(data))
-    }, [hkt])
+    }, [hkt, dummy])
 
     useEffect(() => {
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${hkt}`)
@@ -54,7 +55,7 @@ function View_Admin(props) {
 
         setHkt(e.target.value)
         setEmpresa("")
-        .then(setRetador())
+        setRetador()
 
 
     }
@@ -86,17 +87,17 @@ function View_Admin(props) {
                     <p className="h2">Back Office ADMIN</p>
                 </div>
                 
-                <div className="col-2 d-flex justify-content-evenly">
-                    { hkt && <button className='btn btn-outline-primary' id='view-admin-refresh' onClick={handleRefresh}><i className="fas fa-arrows-rotate"></i></button>}
-                    <button className='btn btn-outline-danger' onClick={handlePress}><i className="fas fa-door-open"></i></button>
+                <div className="col-2 d-flex justify-content-end">
+                     <button className='btn btn-outline-primary' id='view-admin-refresh' onClick={handleRefresh}><i className="fas fa-arrows-rotate"></i></button>
+                    <button className='btn btn-outline-danger ms-4' onClick={handlePress}><i className="fas fa-door-open"></i></button>
                 </div>
             </div>
             
-            <div className="row d-flex justify-content-center mb-5">
+            <div className="row d-flex justify-content-center align-items-center mb-5">
 
-                <div className="col-md-6">
-                    <p>Maneja el HACKATON:</p>
-                    <select className='form-select' name="" id="" onChange={handleHKTChange}>
+                <div className="col-2">
+                    <label className='form-label'>Maneja el HACKATON:</label>
+                    <select className='form-select' name=""  onChange={handleHKTChange}>
                         <option hidden value="">Selecciona el Evento</option>
                         {options.map((option, key) => {
                             return (
@@ -105,126 +106,147 @@ function View_Admin(props) {
                         })}
                     </select>
                 </div>
+                
+
+               <div className="col-2 mt-4">
+                    <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#modal-form-organizador"><i className="fa-solid fa-circle-plus"></i> Nuevo Hackatón</button>
+                </div>
             </div>
 
-            {hkt && <div className="container">
-                {/* MENÚ DE NAVEGACIÓN */}
-                <nav>
-                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Participantes</button>
-                        <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Calendario</button>
-                        <button className="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Blog Interno</button>
-                        <button className="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false">Entregas</button>
+            {hkt && <div className="row">
 
 
-                    </div>
-                </nav>
-                {/* CONTENIDO DE LAS PESTAÑAS */}
-                <div className="tab-content" id="nav-tabContent">
-                    {/* USUARIOS */}
-                    <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
-                        <div className="row py-4 d-flex justify-content-between">
+                <div className=" d-flex align-items-start justify-content-between">
+                    {/* MENÚ DE NAVEGACIÓN */}
+                    <nav>
+                        <div className="nav col-1 flex-sm-column flex-row nav-pills bg-light  me-3 rounded" id="nav-tab" role="tablist">
+                            <button className="nav-link active" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                                <i className="fa-solid fa-user-gear"></i> <p className='m-0'>Participantes</p></button>
+
+                            <button className="nav-link" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar"></i> <p className="m-0">Eventos</p></button>
                             
-                            <div className="col-12">
-                                <UserTable event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
-                            </div>
+                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0">Blog WEB</p></button>
 
-                            {/* <div className="col-12 col-md-3">
-                                <UserForm event={hkt}></UserForm>
-                            </div> */}
-                        </div>
-                    </div>
-                    {/* CALENDARIO */}
-                    <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
-                        <div className="row py-4 d-flex justify-content-between">
-                            {/* <div className="col-12 col-md-8">
-                                <Calendar event={hkt}></Calendar>
-                            </div> */}
-                            <div className="col-12 col-12">
-                                <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
-                            </div>
-                            {/* <div className="col-12 col-md-3">
-                                <CalendarForm event={hkt}></CalendarForm>
-                            </div> */}
-                        </div>
-                    </div>
-                    {/* BLOG INTERNO */}
-                    <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
+                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0">Blog HKT</p></button>
 
-                        <div className="row d-flex justify-content-center my-3">
-                            <div className="col-md-6">
-                                <p>Empresa:</p>
-                                <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
-                                    <option hidden value="">Selecciona la Empresa</option>
-                                    {empresasOptions.map((option, key) => {
-                                        return (
-                                            <option key={key} value={option}>{option}</option>
-                                        )
-                                    })}
-                                </select>
+                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0">Entregas</p></button>
+
+                        </div>
+                    </nav>
+                    {/* CONTENIDO DE LAS PESTAÑAS */}
+                    <div className="tab-content col-11 bg-light rounded p-4" id="nav-tabContent">
+                        {/* USUARIOS */}
+                        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
+                            <div className="row py-4 d-flex justify-content-between">
+                    
+                                <div className="col-12">
+                                    <UserTable event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
+                                </div>
+                                {/* <div className="col-12 col-md-3">
+                                    <UserForm event={hkt}></UserForm>
+                                </div> */}
                             </div>
                         </div>
-                        {empresa && <div className="row py-4 d-flex justify-content-between">
-                            {/* <div className="col-12 col-md-8">
-                                <PostList event={hkt} empresa={empresa}></PostList>
-                            </div> */}
-                            <div className="col-12">
-                                <PostTable event={hkt} empresa={empresa} dummy={dummy}></PostTable>
-                            </div>
-                            {/* <div className="col-12 col-md-3">
-                                <PostForm event={hkt} empresa={empresa}></PostForm>
-                            </div> */}
-                        </div>}
-                    </div>
-
-
-                    {/* ENTREGAS / ARCHIVOS */}
-                    <div className="tab-pane fade" id="nav-entregas" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
-
-                        <div className="row d-flex justify-content-center my-3">
-                            <div className="col-md-6">
-                                <p>Empresa:</p>
-                                <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
-                                    <option hidden value="">Selecciona la Empresa</option>
-                                    {empresasOptions.map((option, key) => {
-                                        return (
-                                            <option key={key} value={option}>{option}</option>
-                                        )
-                                    })}
-                                </select>
+                        {/* CALENDARIO */}
+                        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
+                            <div className="row py-4 d-flex justify-content-between">
+                                {/* <div className="col-12 col-md-8">
+                                    <Calendar event={hkt}></Calendar>
+                                </div> */}
+                                <div className="col-12 col-12">
+                                    <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
+                                </div>
+                                {/* <div className="col-12 col-md-3">
+                                    <CalendarForm event={hkt}></CalendarForm>
+                                </div> */}
                             </div>
                         </div>
-                       { empresa && <div className="row d-flex justify-content-center my-3">
-                            <div className="col-md-6">
-                                <p>Retador:</p>
-                                <select className='form-select' name="" id="" onChange={handleRetadorChange}>
-                                    <option hidden value="">Selecciona el Retador</option>
-                                    {retadorOptions.map((option, key) => {
-                                        return (
-                                            <option key={key} value={option}>{option}</option>
-                                        )
-                                    })}
-                                </select>
+                        {/* BLOG INTERNO */}
+                        <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
+                            <div className="row d-flex justify-content-center my-3">
+                                <div className="col-md-6">
+                                    <p>Empresa:</p>
+                                    <select className='form-select' name=""  onChange={handleEmpresaChange}>
+                                        <option  value="">Selecciona la Empresa</option>
+                                        {empresasOptions.map((option, key) => {
+                                            return (
+                                                <option key={key} value={option}>{option}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
                             </div>
-                        </div>}
-                        {empresa && retador &&<div className="row py-4 d-flex justify-content-between">
-                            {/* <div className="col-12 col-md-8">
-                                <PostList event={hkt} empresa={empresa}></PostList>
-                            </div> */}
-                            <div className="col-12">
-                                <FileTable event={hkt} empresa={empresa} dummy={dummy} user={retador}></FileTable>
+                            {empresa && <div className="row py-4 d-flex justify-content-between">
+                                {/* <div className="col-12 col-md-8">
+                                    <PostList event={hkt} empresa={empresa}></PostList>
+                                </div> */}
+                                <div className="col-12">
+                                    <PostTable event={hkt} empresa={empresa} dummy={dummy}></PostTable>
+                                </div>
+                                {/* <div className="col-12 col-md-3">
+                                    <PostForm event={hkt} empresa={empresa}></PostForm>
+                                </div> */}
+                            </div>}
+                        </div>
+                        {/* ENTREGAS / ARCHIVOS */}
+                        <div className="tab-pane fade" id="nav-entregas" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
+                            <div className="row d-flex justify-content-center my-3">
+                                <div className="col-md-6">
+                                    <p>Empresa:</p>
+                                    <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
+                                        <option  value="">Selecciona la Empresa</option>
+                                        {empresasOptions.map((option, key) => {
+                                            return (
+                                                <option key={key} value={option}>{option}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
                             </div>
-                            {/* <div className="col-12 col-md-3">
-                                <PostForm event={hkt} empresa={empresa}></PostForm>
-                            </div> */}
-                        </div>}
+                           { empresa && <div className="row d-flex justify-content-center my-3">
+                                <div className="col-md-6">
+                                    <p>Retador:</p>
+                                    <select className='form-select' name="" id="" onChange={handleRetadorChange}>
+                                        <option  value="">Selecciona el Retador</option>
+                                        {retadorOptions.map((option, key) => {
+                                            return (
+                                                <option key={key} value={option}>{option}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                            </div>}
+                            {empresa && retador &&<div className="row py-4 d-flex justify-content-between">
+                                {/* <div className="col-12 col-md-8">
+                                    <PostList event={hkt} empresa={empresa}></PostList>
+                                </div> */}
+                                <div className="col-12">
+                                    <FileTable event={hkt} empresa={empresa} dummy={dummy} user={retador}></FileTable>
+                                </div>
+                                {/* <div className="col-12 col-md-3">
+                                    <PostForm event={hkt} empresa={empresa}></PostForm>
+                                </div> */}
+                            </div>}
+                        </div>
                     </div>
-
                 </div>
             </div>}
 
+            {/* MODAL USER FORM ORGANIZADOR */}
+            <div className="modal fade" id="modal-form-organizador" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <p className="modal-title h5" id="staticBackdropLabel">Nuevo Organizador</p>
+                            <button type="button" className="btn-close cerrar-modal-org" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                           <UserFormOrganizador dummy={dummy}></UserFormOrganizador>
+                        </div>
 
-
+                    </div>
+                </div>
+            </div>
             
 
 

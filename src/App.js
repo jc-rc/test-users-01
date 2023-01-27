@@ -50,7 +50,7 @@ function App() {
 
 
   return (
-    <div className="container  p-4" style={{ maxWidth: 1300 }}>
+    <div className="container  p-4" style={{ maxWidth: 1500 }}>
       <div className="row ">
         <div className="col-12 d-flex justify-content-center">
           {!currentUser ? <form action="" style={{ maxWidth: 600 }} className="border p-4 rounded d-none d-md-block" onSubmit={handleSubmit}>
@@ -61,12 +61,12 @@ function App() {
               <hr />
             </div>
             <div className="mb-3">
-              <label htmlFor="">Username</label>
+              <label htmlFor="">Usuario</label>
               <input name="username" type="text" onChange={handleUsernameChange} className="form-control" required />
 
             </div>
             <div className="mb-4">
-              <label htmlFor="">Password</label>
+              <label htmlFor="">Contraseña</label>
               <input type="password" name="password" onChange={handlePasswordChange} className="form-control" required />
 
             </div>
@@ -76,16 +76,16 @@ function App() {
               <p className='small m-0'>Verifica tu usuario y/o contraseña</p>
             </div> : null}
 
-            <button type="submit" className="btn btn-primary mb-5 w-100 naranja-ctvka">Ingresar</button>
+            <button type="submit" className="btn btn-primary mb-4 w-100 naranja-ctvka">Ingresar</button>
+            <hr />
 
-
-            <p className='small m-0'>
-              <a href='#' data-bs-toggle="modal" data-bs-target="#modal-add-retador">Crear Cuenta Retador</a>
+            <p className='small m-0 '>
+              <a href='#' data-bs-toggle="modal" data-bs-target="#modal-add-retador">Pre-Registro Retador</a>
             </p>
             <p className='small m-0'>
               <a href='#' data-bs-toggle="modal" data-bs-target="#modal-change-pw">Cambiar Contraseña</a>
             </p>
-            <p className='small'>
+            <p className='small m-0'>
               ¿Problemas para ingresar? <a href="mailto:jcrc@sirius-tec.com">Contacta al Administrador</a>
             </p>
 
@@ -117,8 +117,8 @@ function App() {
         <div className="modal-dialog modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <p className="modal-title h5" id="staticBackdropLabel">Crear Retador</p>
-              <button type="button" className="btn-close cerrar-modal-detalle" data-bs-dismiss="modal" aria-label="Close"></button>
+              <p className="modal-title h5" id="staticBackdropLabel">Pre-Registro Retador</p>
+              <button type="button" className="btn-close cerrar-modal-retador" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <UserFormRetador />
@@ -135,7 +135,7 @@ function App() {
           <div className="modal-content">
             <div className="modal-header">
               <p className="modal-title h5" id="staticBackdropLabel">Cambiar Contraseña</p>
-              <button type="button" className="btn-close cerrar-modal-detalle" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" className="btn-close cerrar-modal-contraseña" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
               Este enlace está en construcción; mientras tanto, contacta al Administrador en el enlace inferior.

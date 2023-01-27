@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 function UserFormRetador(props) {
 
     useEffect(() => {
-        setForm({ ...form, role: "RETADOR" })
+        setForm({ ...form, role: "RETADOR", aprobado: 0 })
     }, [props])
 
 
@@ -25,7 +25,7 @@ useEffect(() => {
     var [form, setForm] = useState({
         username: "",
         password: "",
-        role: "",
+        role: "RETADOR",
         hkt: "",
         empresa_ret: "",
         team1: "",
@@ -35,6 +35,7 @@ useEffect(() => {
         team5: "",
         email: "",
         tel: "",
+        aprobado: 0
 
     })
 
@@ -105,12 +106,12 @@ useEffect(() => {
 
         //Lógica de INSERTAR usuario en DB
 
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}`,
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}&aprobado=${form.aprobado}`,
             { method: "POST" })
-            .then(response => response ? alert("User Created") : null)
+            .then(response => response ? alert("Retador registrado, espera aprobación para acceder.") : null)
             .then(document.getElementById("userForm").reset())
             .then(setForm({ hkt: props.event }))
-            .then(document.querySelector(".cerrar-modal").click())
+            .then(document.querySelector(".cerrar-modal-retador").click())
             .then(setTimeout(() => {
                 document.querySelector("#view-admin-refresh").click()
             }, 3000))

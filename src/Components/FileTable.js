@@ -12,6 +12,10 @@ function FileTable(props) {
     var linksList = []
     var sortedLinks = []
 
+    const [retroData, setRetroData] = useState([{
+
+    }])
+
     useEffect(() => {
         //LIST ALL FILES
         setLinks([])
@@ -25,12 +29,15 @@ function FileTable(props) {
                         console.log(item)
                         getDownloadURL(item)
                             .then(url => setLinks(prev => [...prev, url]))
+                            .then(console.log(links))
 
                     }
 
                 )
             }
-            )
+            ) 
+
+            
 
 
 
@@ -66,19 +73,26 @@ function FileTable(props) {
                 <p className="h3 mb-3">Archivos Subidos:</p>
                 <div className="list-group">
 
-                    {links && data &&
+                    { (links && data) && 
 
                         links.map((link, key) => {
                             return (
-                                <div className="row d-flex list-group-item list-group-item-action" key={key}>
-                                    <div className="col-10">
-                                        <a href={link} target={"_blank"} className="">
-                                            <p className='text-break' >Entrega {data[key]._location.path_}</p>
+                                <div className="row d-flex list-group-item list-group-item-action p-3" key={key}>
+                                    <div className="col-10 mb-3">
+                                        <p className="h5 m-0">{((link.split("/o/", 2)[1]).split("%2F", 4)[3]).split("?", 1)}</p>
+                                        <p className="small mb-3"> Subido: {link.split("_", 4)[3].split("?", 2)[0]}</p>
+                                        <a href={link} target={"_blank"} className="btn btn-primary border rounded p-2">
+                                            <p className='text-break m-0' ><i class="fa-solid fa-file-pdf h6 me-2"></i> Descargar</p>
                                         </a>
                                     </div>
                                     {role !== "RETADOR" && <div className="col-2">
-                                        <button className='btn btn-outline-danger float-end' style={{ zIndex: 999 }} data-path={data[key]._location.path_} onClick={(e) => handleDelete(e)}>X</button>
+                                        <button className='btn btn-outline-danger float-end fw-bold' style={{ zIndex: 999 }} data-path={data[key]._location.path_} onClick={(e) => handleDelete(e)}>X</button>
                                     </div>}
+                                    <hr />
+                                    <div className="col-12 alert alert-info p-2">
+                                        <p className='h6 m-0'>Comentarios de {empresa}:</p>
+                                        <p className='small m-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, repudiandae. </p>
+                                    </div>
                                 </div>
                             )
                         })

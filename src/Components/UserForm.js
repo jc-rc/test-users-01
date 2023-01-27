@@ -123,7 +123,7 @@ function UserForm(props) {
             </div>
             <div className="mb-3">
                 <label htmlFor="" className="form-label">Teléfono:</label>
-                <input type="tel" name="" className='form-control' required onChange={handleTelChange} maxLength={10} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos'/>
+                <input type="tel" name="" className='form-control' required onChange={handleTelChange} maxLength={10} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' />
             </div>
             <div className="mb-3">
                 <label className='form-label' htmlFor="">Role:</label>
