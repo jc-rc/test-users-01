@@ -72,8 +72,10 @@ button, .naranja-ctvka {
 .nav-pills .nav-link.active{
   background-color: #F06A15!important;
   color: white!important;
+  height: 66px;
 }
 .nav-pills .nav-link{
   color: #F06A15!important;
   background-color: rgb(248,249,250)!important;
+  height: 66px
 }
