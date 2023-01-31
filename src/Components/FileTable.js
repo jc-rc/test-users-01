@@ -59,7 +59,7 @@ function FileTable(props) {
 
         const deleteRef = ref(storage, `${e.target.dataset.path}`)
 
-        if (window.confirm(`¿En realidad desea eliminar: el archivo?`)) {
+        if (window.confirm(`¿En realidad desea eliminar el archivo?`)) {
             deleteObject(deleteRef)
                 .then(alert("FILE DELETED"))
                 .then(setTimeout(() => {
@@ -68,6 +68,25 @@ function FileTable(props) {
         } else {
             alert("Eliminación Cancelada")
         }
+    }
+    const handleDeleteFeed = (e) => {
+
+        console.log(e.target.dataset.id)
+
+        if(window.confirm("¿En realidad desea eliminar el comentario?")){
+             //Delete Feedback
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deleteFeedback?_id=${e.target.dataset.id}`, 
+        {method: "DELETE"})
+        .then(response => response.json())
+        .then(response=> response.deletedCount > 0 ? alert("Comentario Eliminado") : alert("ERROR"))
+        .then(setTimeout(() => {
+            document.querySelector("#view-admin-refresh").click()
+        }, 1500))
+        }else{
+            alert("Eliminación Cancelada")
+        }
+       
+        
     }
 
 
@@ -108,12 +127,15 @@ function FileTable(props) {
 
                                             return (
                                                 <div className="col-12 alert alert-info p-2 mb-1" key={key}>
-                                                    <div className="row d-flex align-items-end">
-                                                        <div className="col-8">
+                                                    <div className="row d-flex align-items-center justify-content-between">
+                                                        <div className="col">
                                                             <p className='small m-0'>{retro.contenido}</p>
                                                         </div>
-                                                        <div className="col-4">
+                                                        <div className="col-3">
                                                             <p className='small m-0 fst-italic text-end'> Publicado: {retro.fecha} </p>
+                                                        </div>
+                                                        <div className="col-1 text-end">
+                                                            <button className='btn btn-outline-danger' data-id={retro._id} onClick={handleDeleteFeed}>X</button>
                                                         </div>
                                                     </div>
                                                 </div>

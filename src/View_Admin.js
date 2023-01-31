@@ -4,6 +4,7 @@ import CalendarTable from './Components/CalendarTable'
 import PostTable from './Components/PostTable'
 import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
+import BlogTable from './Components/BlogTable'
 
 
 
@@ -231,6 +232,15 @@ function View_Admin(props) {
                         </div>
 
                         {/* BLOG EXTERNO */}
+                        <div className="tab-pane fade" id="nav-blog-web" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
+                            <div className="row py-4 d-flex justify-content-between">
+                                
+                                <div className="col-12 col-12">
+                                    <BlogTable dummy={dummy}></BlogTable>
+                                </div>
+                                
+                            </div>
+                        </div>
 
                         {/* DASHBOARD */}
                         <div className="tab-pane fade" id="nav-dash" role="tabpanel" aria-labelledby="nav-dash-tab" tabIndex="0">
