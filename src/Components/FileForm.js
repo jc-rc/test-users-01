@@ -21,7 +21,7 @@ function FileForm(props) {
         var currentDay = currentDate.getDate()
         var currentMonth = currentDate.getMonth()+1
         var currentYear = currentDate.getFullYear()
-        const fileRef = ref(storage, `${user.hkt}/${user.empresa_ret}/${user.username}/${user.username}_${user.empresa_ret}_${user.hkt}_${currentDay}-${currentMonth}-${currentYear}`)
+        const fileRef = ref(storage, `${user.hkt}/${user.empresa_ret}/${user.username}/${user.username}_${user.empresa_ret}_${user.hkt}`)
     
         uploadBytes(fileRef, iptFile)
         .then(response=> console.log(response))
@@ -41,11 +41,13 @@ function FileForm(props) {
         </div>
         <div className="col-12 d-flex flex-column">
               <input type="file" className="form-control mb-3" name="" id="" accept="application/pdf" onChange={(e)=> setIptFile(e.target.files[0])}/>
-              <label htmlFor="" className="form-label small fst-italic mb-1">*Solo admite archivos "PDF"</label>
-              <label htmlFor="" className="form-label small fst-italic mb-3">**Admite 1 carga diaria, cualquier carga durante el mismo día se sobreescribe.</label>
+              <div className="alert alert-info p-2">
+                <p htmlFor="" className="form-label small fst-italic mb-1">*Solo admite archivos "PDF"</p>
+                <p htmlFor="" className="form-label small fst-italic ">**Las cargas se sobreescriben.</p>
+              </div>
             </div>
               <div className="col-12 mb-3">
-                <button className="btn btn-primary float-end" onClick={handleUpload}>UPLOAD!</button>
+                <button className="btn btn-primary float-end" onClick={handleUpload}>Cargar</button>
                 </div>
     </div>
         
