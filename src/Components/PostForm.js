@@ -28,7 +28,7 @@ function PostForm(props) {
     const handleSubmit = (e)=>{
         e.preventDefault()
        setForm({...form, autor: e.target.autor.value})
-        console.log("Received Data:",form);
+       
 
         //POST A DB
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createPost?autor=${form.autor}&título=${form.título}&contenido=${form.contenido}&fecha=${form.fecha}&hkt=${form.hkt}`,
@@ -81,8 +81,8 @@ function PostForm(props) {
                 <label htmlFor="" className="form-label">Contenido:</label>
                 <textarea className='form-control' style={{height: 200}} required maxLength={300} value={form.contenido} placeholder="Máx. 300 caracteres" onChange={handleContentChange}></textarea>
             </div>
-            <button className="btn btn-primary float-end" type='submit'>Create!</button>
-            <button className="btn btn-outline-danger me-3 float-end" type='reset' >Clear</button>
+            <button className="btn btn-primary float-end" type='submit'>Crear</button>
+            <button className="btn btn-outline-danger me-3 float-end" type='reset' >Limpiar</button>
         </form>
     </div>
   )

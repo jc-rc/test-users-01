@@ -9,12 +9,13 @@ function PostDetail(props) {
     })
 
   return (
-    <div className="row">
-        <div className="col-12 h4">{data.título}</div>
-        <div className="col-6 small mb-3 fst-italic">{data.autor} | {data.fecha}</div>
+    <div className="div">
+        
+        <p className="small fst-italic mb-0">Autor: {data.autor} </p>
+        <span className="badge text-bg-warning">{new Date(data.fecha).toLocaleString().slice(0, -3)}</span>
         <hr />
         
-        <div className="col-12">{data.contenido}</div>
+        <div className="col-12 mb-3">{data.contenido}</div>
     </div>
   )
 }

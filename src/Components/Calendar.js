@@ -28,11 +28,14 @@ function Calendar(props) {
                         </div>
                         <div className="col-12">
                             {cEvent.eventos.map((evento, key)=>{
+
+var color = ""
+evento.título === "ENTREGA FINAL" ? color = "badge text-bg-danger m-0" : color = ""
                                 return(
                                     <dl className="row m-0" key={key}>
                                 <dt className="col-12 col-md-3 mb-2">{evento.hora}hrs.</dt>
                                 <dd className="col-12 col-md-9">
-                                    <p className='h6 mb-1 ms-4 ms-md-0'>
+                                    <p className={`h6 mb-1 ms-4 ms-md-0 ${color}`}>
                                          {evento.título}</p>
                                     <p className='small ms-4 ms-md-0 mb-1 text-truncate'>{evento.desc}</p>
                                 </dd>

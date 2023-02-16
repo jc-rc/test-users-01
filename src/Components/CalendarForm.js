@@ -2,49 +2,39 @@ import React, {useEffect, useState} from 'react'
 
 function CalendarForm(props) {
 
-    useEffect(()=>{
-        setForm({...form, hkt: props.event})
-    }, [props])
-
+    
     const [form, setForm] = useState({
-        fecha: "",
-        hora: "",
-        título: "",
-        desc: "",
-        hkt: props.event
+        hkt: props.event,
+        fecha: props.initDate || ""
     })
-
+    
+    useEffect(() => {
+     setForm({...form, fecha: props.initDate})
+    }, [props.initDate])
     
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-        console.log("Data Received",form);
+        
 
         // //POST A DB
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/addEventToDate?fecha=${form.fecha}&hkt=${form.hkt}&hora=${form.hora}&título=${form.título}&desc=${form.desc}`,{ method: "POST" })
-        .then(response=>{
-            if (response.status >=400){
-                console.log("FECHA NO ENCONTRADA, CREANDO FECHA y EVENTO...")
-
-                fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createDate?fecha=${form.fecha}&hkt=${form.hkt}&hora=${form.hora}&título=${form.título}&desc=${form.desc}`, {method: "POST"})
-                .then(()=>{
-                    alert("Date Created and Event Added")
-                })
-
-            }else{
-                alert("Event Added to this date: " + form.fecha)
-            }
-        })
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createDate?hkt=${form.hkt}&fecha=${form.fecha}&horaI=${form.horaI}&horaF=${form.horaF}&título=${form.título}&desc=${form.desc}&allDay=${form.allDay}&`, 
+        {method: "POST"})
+        
         .then(()=>{
+            alert("EVENTO CREADO")
             //Limpiar el formulario
             document.getElementById("eventForm").reset()
         }) 
         .then( document.querySelector(".cerrar-modal-calendar").click())
         .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
-        }, 3000) )  
+        }, 1500) )  
 
+    }
 
+    const handleReset = (e)=>{
+        setForm({hkt: props.event, fecha: props.initDate})
     }
 
   
@@ -54,8 +44,11 @@ function CalendarForm(props) {
     const handleDateChange = (e)=>{
         setForm({...form, fecha: e.target.value})
     }
-    const handleTimeChange = (e)=>{
-        setForm({...form, hora: e.target.value})
+    const handleTimeIChange = (e)=>{
+        setForm({...form, horaI: e.target.value})
+    }
+    const handleTimeFChange = (e)=>{
+        setForm({...form, horaF: e.target.value})
     }
     const handleTitleChange = (e)=>{
         setForm({...form, título: e.target.value})
@@ -63,34 +56,47 @@ function CalendarForm(props) {
     const handleDescChange = (e)=>{
         setForm({...form, desc: e.target.value})
     }
+    const handleAllDayChange = (e)=>{
+        setForm({...form, allDay: e.target.checked})
+    }
 
 
   return (
-    <div className="row">
-        <form action="" onSubmit={handleSubmit} id="eventForm">
-            <p className="h3">Create New Event:</p>
-            <hr />
-            
-            <div className="mb-3">
-                <label className='form-label' htmlFor="">Fecha:</label>
-                <input className='form-control' type="date" name=""  required onChange={handleDateChange}/>
-            </div>
-            <div className="mb-3">
-                <label className='form-label' htmlFor="">Hora:</label>
-                <input className='form-control' type="time" name=""  step="600" required onChange={handleTimeChange}/>
-            </div>
-            <div className="mb-3">
-                <label className='form-label' htmlFor="">Título</label>
-                <input className='form-control' type="text" name=""  required maxLength={30} placeholder="Máx. 30 caracteres"  onChange={handleTitleChange}/>
-            </div>
-            <div className="mb-3">
-                <label className='form-label' htmlFor="">Descripción</label>
-                <textarea className='form-control' style={{height: 200}} required maxLength={300} placeholder="Máx. 300 caracteres" onChange={handleDescChange}/>
-            </div>
-            <button className="btn btn-primary float-end" type='submit'>Create</button>
-            <button className="btn btn-outline-danger me-3 float-end" type="reset">Clear</button>
-        </form>
-    </div>
+      <form className='' action="" onSubmit={handleSubmit} onReset={handleReset} id="eventForm">
+          <div className="row d-flex">
+
+              <div className="col-5 mb-3">
+                  <label className='form-label' htmlFor="">Todo el Día?</label>
+                  <input className='form-check' type="checkbox" name="" onChange={handleAllDayChange} />
+              </div>
+
+              <div className="col-7 mb-3">
+                  <label className='form-label' htmlFor="">Fecha:</label>
+                  <input className='form-control' type="date" name="" value={form.fecha} required onChange={handleDateChange} />
+              </div>
+              <div className="col-6 mb-3">
+                  <label className='form-label' htmlFor="">Hora Inicio:</label>
+                  <input className='form-control' type="time" name="" step="300" required onChange={handleTimeIChange} />
+              </div>
+              {form.horaI && <div className="col-6 mb-3">
+                  <label className='form-label' htmlFor="">Hora Fin:</label>
+                  <input className='form-control' type="time" name="" min={form.horaI} step="300" required onChange={handleTimeFChange} />
+              </div>}
+              <div className="mb-3">
+                  <label className='form-label' htmlFor="">Título:</label>
+                  <input className='form-control' type="text" name="" required maxLength={30} placeholder="Máx. 30 caracteres" onChange={handleTitleChange} />
+              </div>
+              <div className="mb-3">
+                  <label className='form-label' htmlFor="">Descripción:</label>
+                  <textarea className='form-control' style={{ height: 100 }} required maxLength={300} placeholder="Máx. 300 caracteres" onChange={handleDescChange} />
+              </div>
+              <div className="col-12">
+                  <button className="btn btn-primary float-end" type='submit'>Crear</button>
+                  <button className="btn btn-outline-danger me-3 float-end" type="reset">Limpiar</button>
+              </div>
+
+          </div>
+      </form>
   )
 }
 

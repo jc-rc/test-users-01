@@ -16,10 +16,10 @@ function CalendarTable(props) {
   const [events, setEvents] = useState([])
 
   const [initValues, setInitValues] = useState({
-      hkt: props.event,
-      _id: "",
-      fecha:"",
-      eventos: [{hora:"", título:"", desc: ""}]
+    hkt: props.event,
+    _id: "",
+    fecha: "",
+    eventos: [{ hora: "", título: "", desc: "" }]
   })
   const [initKey, setInitKey] = useState(0)
 
@@ -28,32 +28,25 @@ function CalendarTable(props) {
   const handleEditButton = (event, key) => {
     setInitValues(event)
     setInitKey(key)
-    console.log("Editando Fecha @" + event.fecha, ", Evento #" + key)
+    
 
   }
 
-  const handleDeleteButton = (event, key) => {
-    setInitValues(event)
-    console.log("Editando Fecha @" + event.fecha, ", Evento #" + key)
+  const handleDeleteButton = (e) => {
+    
 
-    let confirmDelete = window.confirm(`⚠ ¿En verdad desea eliminar el evento: ⚠ \n "${event.eventos[key].título}"? `)
-    if (confirmDelete) {
-      fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deleteEventFromDate?_id=${event._id}&fecha=${event.fecha}&hora=${event.eventos[key].hora}&título=${event.eventos[key].título}&desc=${event.eventos[key].desc}`,
-        { method: "DELETE" })
-        .then(response => response.json())
-        .then(response => {
-          if (response.modifiedCount === 0) {
-            alert("No hay eventos en esta fecha; borrando la fecha...")
-            .then( setTimeout(() => {document.querySelector("#view-admin-refresh").click()}, 3000) ) 
-          } else {
-            alert("Evento Borrado")
-            .then( setTimeout(() => {document.querySelector("#view-admin-refresh").click()}, 3000) ) 
-          }
-        })
+    if(window.confirm("¿En realidad desea eliminar el evento?")){
 
-    } else {
-      alert(`Se canceló la operación.`)
-    }
+      fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deleteEventFromDate?_id=${e.target.dataset.id}`,
+      {method: "DELETE"})
+      .then(response => response.json())
+      .then(response=> response.deletedCount > 0 ? alert("Evento Eliminado") : alert("ERROR"))
+      .then(setTimeout(() => {
+          document.querySelector("#view-admin-refresh").click()
+      }, 1500))
+      }else{
+          alert("Eliminación Cancelada")
+      }
   }
 
 
@@ -61,56 +54,71 @@ function CalendarTable(props) {
     <div className=''>
 
       <div className="col-12 d-flex justify-content-between mb-4">
-        <p className="h3">Events:</p>
-        <button className="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-add-event">Añadir Evento <i className="fa-solid fa-plus-circle"></i> </button>
+        <p className="h3">Eventos</p>
+        <button className="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-add-event"><i className="fa-solid fa-plus"></i> Evento  </button>
       </div>
 
       <div className="row d-none d-md-flex p-2">
-        <div className="col-2 fw-bold">Fecha</div>
-        <div className="col-1 fw-bold">Hora</div>
+        <div className="col-3 fw-bold">Fecha Inicio</div>
+        
         <div className="col-3 fw-bold">Título</div>
-        <div className="col-4 fw-bold">Desc.</div>
-        <div className="col-1 fw-bold">Editar</div>
+        <div className="col-5 fw-bold">Descripción</div>
+        
         <div className="col-1 fw-bold">Borrar</div>
 
       </div>
 
       <div className="list-group">
         {
-        
-          
-      events.map((event, key) => {
-        
+
+
+          events.map((event, key) => {
+
+            let badge = ""
+            event.allDay ? badge = <span className='badge text-bg-warning'>Día Entero</span> : badge= ""
+
+            let color = ""
+                event.título === "ENTREGA FINAL" ? color = 'badge text-bg-danger' : color = ""
+
             return (
 
-        event.eventos.length !=0 ? <div className='list-group-item' key={key}>
+              <div className="">
+                <div className='list-group-item d-none d-md-block' key={key}>
+                  <div className="row">
+                    <div className="col-3"><p className='m-0'>{new Date(event.fechaI).toLocaleString().slice(0, -3)}</p>{badge}</div>
+                    <div className="col-3"><span className={color}>{event.título}</span></div>
+                    <div className="col-5"><p className="truncado">{event.desc}</p></div>
+                    <div className="col-1"><button className="btn btn-outline-danger w-100" data-id={event._id} onClick={handleDeleteButton}><i className="fa-solid fa-trash-can" data-id={event._id}></i></button></div>
+                  </div>
+                </div>
 
-          {event.eventos.map((sEvent, key2) => {
-            return (
-              <div className='row p-2 d-flex align-items-center justify-content-center ' id={event._id} key={key2}>
-                <div className="col-2">
-                  <p className='h6'>{event.fecha}</p>
+                <div className='list-group-item d-block d-md-none rounded' key={key}>
+                  <div className="row d-flex justify-content-center align-items-center">
+                    <div className="col-8">
+                      <p className={color + " small fw-bold m-0"}>{event.título}</p>
+                      <p className="m-0">{badge}</p>
+                    </div>
+                    <div className="col-4 text-end">
+                      <button className="btn btn-sm btn-outline-danger" onClick={handleDeleteButton} data-id={event._id}>
+                        <i className="fa-solid fa-trash-can" data-id={event._id}></i>
+                      </button>
+
+                    </div>
+                    <div className="col-12">
+                      <p className="small mb-1"><span className="badge text-bg-success">{new Date(event.fechaI).toLocaleString().slice(0, -3)}</span></p>
+                    </div>
+                    <div className="col-12">
+                      <p className={"small"}>{event.desc}</p>
+
+                    </div>
+                   
+                  </div>
                 </div>
-                <div className="col-1">
-                  <p>{sEvent.hora}</p>
-                </div>
-                <div className="col-3">
-                  <p className='small truncado2'>{sEvent.título}</p>
-                </div>
-                <div className="col-4">
-                  <p className='small truncado2'>{sEvent.desc}</p>
-                </div>
-                <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-dark w-100" onClick={() => handleEditButton(event, key2)} data-bs-toggle="modal" data-bs-target="#modal-edit-event"><i className="fa-solid fa-pencil"></i></button></div>
-                <div className="col-md-1 col-6 text-center"><button className="btn btn-outline-danger w-100" onClick={() => handleDeleteButton(event, key2)}><i className="fa-solid fa-trash-can" ></i></button></div>
               </div>
+
             )
+
           })}
-
-        </div>
-
-        : null)
-        
-        }) }
       </div>
 
 
@@ -119,7 +127,7 @@ function CalendarTable(props) {
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <p className="modal-title h3" id="staticBackdropLabel">Añadir Evento</p>
+              <p className="modal-title h3" id="staticBackdropLabel">Crear Evento</p>
               <button type="button" className="btn-close cerrar-modal-calendar" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">

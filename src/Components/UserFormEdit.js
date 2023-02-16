@@ -211,8 +211,8 @@ function UserFormEdit(props) {
                       : null
             }
 
-            <button className="btn btn-info float-end" type='submit'>Update</button>
-            <button className="btn btn-outline-danger me-3 float-end" type="reset">Clear</button>
+            <button className="btn btn-primary float-end" type='submit'>Actualizar</button>
+            <button className="btn btn-outline-danger me-3 float-end" type="reset">Limpiar</button>
         </form>
     </div>
   )

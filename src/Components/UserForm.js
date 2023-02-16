@@ -183,8 +183,8 @@ function UserForm(props) {
                       : null
             }
 
-            <button className="btn btn-primary float-end" type='submit'>Create</button>
-            <button className="btn btn-outline-danger me-3 float-end" type="reset">Clear</button>
+            <button className="btn btn-primary float-end" type='submit'>Crear</button>
+            <button className="btn btn-outline-danger me-3 float-end" type="reset">Limpiar</button>
         </form>
     </div>
   )

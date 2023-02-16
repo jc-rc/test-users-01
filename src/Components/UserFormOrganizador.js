@@ -75,16 +75,16 @@ function UserFormOrganizador(props) {
         <div className='row'>
 
             <div className="col-12">
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    <p className=' small m-0'><span className='h6 me-1'><i class="fa-solid fa-circle-info"></i></span> Para crear un nuevo Hackatón, se requiere crear un nuevo usuario "Organizador".</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div className="alert alert-info alert-dismissible fade show" role="alert">
+                    <p className=' small m-0'><span className='h6 me-1'><i className="fa-solid fa-circle-info"></i></span> Para crear un nuevo Hackatón, se requiere crear un nuevo usuario "Organizador".</p>
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
 
             <form action="" id='form-organizador' onSubmit={handleSubmit} onReset={handleReset}>
                 <div className="col-12 mb-3">
                     <label htmlFor="" className="form-label">Hackatón:</label>
-                    <div class="input-group mb-3">
+                    <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">HKT_</span>
                         <input type="text" className="form-control" placeholder="MORELOS_2022" aria-label="Username" aria-describedby="basic-addon1" onChange={handleHktChange} maxLength={20}/>
                     </div>
@@ -111,7 +111,7 @@ function UserFormOrganizador(props) {
                     <input type="email" className="form-control" placeholder='correo@dominio.com' onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com'/>
                 </div>
                 <div className="col-12 text-end">
-                    <button className="btn btn-outline-danger me-3" type='reset'>Clear</button>
+                    <button className="btn btn-outline-danger me-3" type='reset'>Limpiar</button>
                     <button className="btn btn-primary" type='submit'>Crear</button>
                 </div>
             </form>

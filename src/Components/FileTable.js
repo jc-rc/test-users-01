@@ -25,14 +25,14 @@ function FileTable(props) {
                 setData(response.items)
                 response.items.map(
                     item => {
-                        console.log(item, "phase 1")
+                        
                         getMetadata(item)
                             .then(metadata => setMeta(metadata))
-                            .then(console.log(meta))
+                            
 
                         getDownloadURL(item)
                             .then(url => setLinks(prev => [...prev, url]))
-                            .then(console.log(links))
+                            
                     }
                 )
             }
@@ -59,7 +59,7 @@ function FileTable(props) {
 
     const handleDelete = (e) => {
 
-        console.log(e.target.dataset.path + ".pdf")
+        
 
         const deleteRef = ref(storage, `${e.target.dataset.path}`)
 
@@ -75,7 +75,7 @@ function FileTable(props) {
     }
     const handleDeleteFeed = (e) => {
 
-        console.log(e.target.dataset.id)
+        
 
         if (window.confirm("¿En realidad desea eliminar el comentario?")) {
             //Delete Feedback
@@ -94,12 +94,13 @@ function FileTable(props) {
     }
 
     var isoString = new Date(meta.timeCreated)
-    var localString = isoString.toLocaleString()
+    var localString = isoString.toLocaleString().slice(0, -3)
 
 
     return (
         <div className="row">
             <div className="col-12">
+                <p className="h3 mb-3 d-bloc">Entregas</p>
 
                 <ul className="list-group">
 
@@ -107,23 +108,29 @@ function FileTable(props) {
 
                         links.map((link, key) => {
                             return (
-                              
 
-                                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
 
-                                    <a href={link} target={"_blank"} class="h4 me-3 btn btn-primary"><i className="fa-solid fa-file-pdf"></i></a>
-                                    <div class="ms-2 me-auto">
-                                        <a href={link} target={"_blank"} class="fw-bold">{data[0].name}</a>
-                                        <p className="m-0 small fst-italic">Subido: {localString} </p>
+                                <div class=" list-group-item">
+
+                                    <div className="row d-flex align-items-center">
+                                        <div className="col-1 d-md-block d-none">
+                                            <a href={link} target={"_blank"} class="h4 me-3 btn btn-primary"><i className="fa-solid fa-file-pdf"></i></a>
+                                        </div>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-0">
+                                            <div class="">
+                                                <a href={link} target={"_blank"} class="fw-bold">{data[0].name}</a>
+                                                <p className="m-0 small fst-italic">Subido: {localString} </p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-2 col-12 text-md-end">
+                                            {(role!= "RETADOR") && <button class="btn btn-outline-info me-3" data-bs-toggle="modal" data-bs-target="#modal-form-feedback"><i className="fa-regular fa-comment"></i></button>}
+                                            {role != "RETADOR" && <button class="btn btn-outline-danger" data-path={data[key]._location.path_} onClick={(e) => handleDelete(e)}><i data-path={data[key]._location.path_} className="fa-solid fa-close"></i></button>}
+                                        </div>
                                     </div>
 
 
-                                   {role === "EMPRESA" && <button class="btn btn-outline-info me-3" data-bs-toggle="modal" data-bs-target="#modal-form-feedback"><i className="fa-regular fa-comment"></i></button>}
 
-                                   {role != "RETADOR" && <button class="btn btn-outline-danger" data-path={data[key]._location.path_} onClick={(e) => handleDelete(e)}><i data-path={data[key]._location.path_} className="fa-solid fa-close"></i></button>}
-
-
-                                </li>
+                                </div>
 
                             )
                         })
@@ -132,7 +139,7 @@ function FileTable(props) {
 
                     <li className='list-group-item'>
                         <div className="row">
-                            
+
                             {retroData.map((retro, key) => {
 
                                 return (
@@ -142,10 +149,10 @@ function FileTable(props) {
                                                 <div className="col-11">
                                                     <p className='small me-auto'>{retro.contenido}</p>
                                                     <p className='small m-0 fst-italic'>{retro.empresa}</p>
-                                                    <p className='small m-0'>{retro.fecha}</p>
+                                                    <p className='small m-0'><span className="badge text-bg-warning">{new Date(retro.fecha).toLocaleString().slice(0, -3)}</span></p>
                                                 </div>
                                                 <div className="col text-end">
-                                                   {role != "RETADOR" && <button className='btn btn-outline-danger' data-id={retro._id} onClick={handleDeleteFeed}><i className="fa-solid fa-close" data-id={retro._id}></i></button>}
+                                                    {role != "RETADOR" && <button className='btn btn-outline-danger' data-id={retro._id} onClick={handleDeleteFeed}><i className="fa-solid fa-close" data-id={retro._id}></i></button>}
                                                 </div>
                                             </div>
 
@@ -166,7 +173,7 @@ function FileTable(props) {
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <p className="modal-title h5" id="staticBackdropLabel">Nuevo Comentario</p>
+                            <p className="modal-title h5" id="staticBackdropLabel">Comentario</p>
                             <button type="button" className="btn-close cerrar-modal-feedback" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">

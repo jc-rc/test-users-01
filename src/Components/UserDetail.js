@@ -27,7 +27,7 @@ function UserDetail(props) {
 
   return (
     <div className='row'>
-        <div className="col-12 my-0"><p className="h3">{data.username}</p></div>
+        
         <div className="col-12 mb-3"><span className={"badge text-bg-" + badgeColor}>{data.role}</span></div>
             <hr />
             <div className="col-12 mb-2">Contacto:</div>

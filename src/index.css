@@ -57,7 +57,7 @@ button, .naranja-ctvka {
 
 .btn-primary, .text-bg-primary{
   background-color: #F06A15 !important;
-  border-color: #F06A15;
+  border-color: #F06A15!important;
 }
 .btn-primary:hover{
   background-color: #424144;
@@ -94,4 +94,28 @@ button, .naranja-ctvka {
   box-shadow: 1px 1px #424144;
   scale: 1.2;
 
+}
+
+.evento:hover{
+  cursor: pointer;
+}
+
+@media (max-width: 600px){
+
+  .trash-badge{
+    top: 15%;
+    left: 80%;
+    z-index: 99;
+  
+  }
+  .trash-badge:hover{
+    top: 15%;
+    left: 80%;
+    z-index: 99;
+    cursor: pointer;
+    box-shadow: 1px 1px #424144;
+    scale: 1.2;
+  
+  }
+  
 }

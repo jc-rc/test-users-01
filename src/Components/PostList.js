@@ -34,8 +34,9 @@ function PostList(props) {
                         <div className="col-12 col-md-6" key={key}>
                             <div className="card mb-2" >
                                 <div className="card-body">
-                                    <p className="card-title h5 mb-0">{post.título}</p>
-                                    <p className="card-text small mb-2 fst-italic">Publicado: {post.fecha}</p>
+                                    <p className="card-title h5 mb-2">{post.título}</p>
+                                    <p className='small m-0'>{post.autor}</p>
+                                    <p className="card-text small mb-3 fst-italic"><span className="badge text-bg-warning">{new Date(post.fecha).toLocaleString().slice(0, -3)}</span></p>
                                     <p className="card-text small text-truncate">{post.contenido}</p>
                                 </div>
                             </div>

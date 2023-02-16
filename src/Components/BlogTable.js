@@ -4,6 +4,7 @@ import BlogForm from './BlogForm'
 function BlogTable(props) {
 
     const [data, setData] = useState([ ])
+    const [detail, setDetail] = useState({})
 
     useEffect(() => {
       //Cargar BLOG
@@ -14,7 +15,7 @@ function BlogTable(props) {
     }, [props])
 
     const handleDeletePost = (e)=>{
-        console.log(e.target.dataset.id)
+        
 
         if(window.confirm("¿En realidad desea eliminar el post?")){
 
@@ -29,6 +30,11 @@ function BlogTable(props) {
             alert("Eliminación Cancelada")
         }
     }
+
+    const handleDetail = (post)=>{
+        
+        setDetail(post)
+    }
     
 
 
@@ -36,7 +42,7 @@ function BlogTable(props) {
         <div className=""> 
             <div className="col-12 d-flex justify-content-between mb-4">
                 <p className="h3">Blog Externo</p> 
-                <button className="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-add-blog">Añadir Post <i className="fa-solid fa-plus-circle"></i> </button>
+                <button className="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-add-blog"><i className="fa-solid fa-plus"></i> Post  </button>
             </div>
 
             <div className="row d-flex">
@@ -49,16 +55,17 @@ function BlogTable(props) {
                         post.url === "" ? imageURL = "./logo-ctvka.png" : imageURL = post.url
 
                         return (
-                            < div className="col-4 mb-3 position-relative" key={key}>
+                            < div className="col-12 col-md-4 mb-md-3 mb-0 " key={key}>
                                 <span className='badge rounded-pill position-relative trash-badge text-bg-danger px-3 py-2' onClick={handleDeletePost} data-id={post._id}>X </span>
                                 <div className="card">
                                     
-                                    <img src={imageURL} style={{ height: 250, width: "auto", objectFit: "cover" }} alt="" className="card-img-top" />
+                                    <img src={imageURL} style={{ height: 250, width: "auto", objectFit: "cover" }} alt="" className="card-img-top" loading='lazy'/>
                                     <div className="card-body">
                                         <p className="h5 card-title mb-0">{post.título}</p>
-                                        <p className="small fst-italic"> {post.autor} / {post.fecha}</p>
-                                        <p className="card-text small">{post.contenido}</p>
-                                        <a href="">Ver más...</a>
+                                        <p className="small fst-italic mb-0">Autor: {post.autor} </p>
+                                        <span className="badge text-bg-warning mb-3">{new Date(post.fecha).toLocaleString().slice(0, -3)}</span>
+                                        <p className="card-text small truncado">{post.contenido}</p>
+                                        <button className='btn btn-sm btn-primary p-1'   data-bs-toggle="modal" data-bs-target="#modal-detalle-blog" onClick={()=>handleDetail(post)}>Ver más...</button>
                                     </div>
                                     
                                 </div>
@@ -77,7 +84,7 @@ function BlogTable(props) {
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <p className="modal-title h3" id="staticBackdropLabel">Añadir Post</p>
+                            <p className="modal-title h3" id="staticBackdropLabel">Crear Post</p>
                             <button type="button" className="btn-close cerrar-modal-blog" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -89,6 +96,30 @@ function BlogTable(props) {
             </div>
 
             {/* MODAL DETALLE BLOG POST */}
+            { detail &&  <div className="modal  fade" id="modal-detalle-blog" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div className="modal-content">
+                      <div className="modal-header">
+                          <p className="modal-title h3" id="staticBackdropLabel">{detail.título}</p>
+                          <button type="button" className="btn-close cerrar-modal-calendar-detalle" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body">
+                          <div className="row">
+                            <div className="col-12 card border-0">
+                                <img src={detail.url ||  "./logo-ctvka.png"} style={{ height:200, width: "100%", objectFit: "cover" }} alt="" className='card-img-top' loading='lazy'/>
+                                <div className="card-body">
+                                    
+                                    <p className="small fst-italic mb-0">Autor: {detail.autor} </p>
+                                    <span className="badge text-bg-warning mb-3">{new Date(detail.fecha).toLocaleString().slice(0, -3)}</span>
+                                    <p className='card-text small'>{detail.contenido}</p>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>}
 
         </div >
     )

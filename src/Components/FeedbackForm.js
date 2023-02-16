@@ -40,7 +40,7 @@ const handleSubmit = (e)=>{
         <div className="row">
             <div className="col-12 mb-3">
                 <label htmlFor="" className="form-label">Contenido:</label>
-                <textarea type="text" name="" id="" className='form-control' maxLength={300} placeholder="Máx. 300 caracteres." required onChange={handleContenido}/>
+                <textarea type="text" name="" id="" className='form-control' maxLength={300} style={{height: 200}} placeholder="Máx. 300 caracteres." required onChange={handleContenido}/>
             </div>
             <div className="col-12 mb-3 text-end">
                 <button className="btn btn-outline-danger me-2" type='reset'>Limpiar</button>

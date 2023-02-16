@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UserTable from './Components/UserTable'
 import CalendarTable from './Components/CalendarTable'
+import CalendarChart from './Components/CalendarChart'
 import PostTable from './Components/PostTable'
 import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
@@ -48,7 +49,7 @@ function View_Admin(props) {
 
     const handleRefresh = ()=>{
         setDummy(dummy=> dummy + 1)
-        console.log("Refresh");
+        
     }
    
 
@@ -79,24 +80,24 @@ function View_Admin(props) {
 
     return (
         <div>
-            <div className="row d-flex align-items-center justify-content-end mb-5">
-            <div className="col-1">
-            <div className="text-start"><img src="./logo-ctvka.png" alt="" className='img-fluid' style={{height: 70}}/></div>
+            <div className="row d-flex align-items-center justify-content-md-end justify-content-between mb-5">
+                <div className="col col-md-1">
+                    <div className="text-start"><img src="./logo-ctvka.png" alt="" className='img-fluid' style={{ height: 70 }} /></div>
 
-            </div>
-                <div className="col-9">
-                    <p className="h2">Back Office ADMIN</p>
                 </div>
-                
-                <div className="col-2 d-flex justify-content-end">
-                     <button className='btn btn-outline-primary' id='view-admin-refresh' onClick={handleRefresh}><i className="fas fa-arrows-rotate"></i></button>
+                <div className="col col-md-9">
+                    <p className="h5 h-md-3">Portal {props.user.role}</p>
+                </div>
+
+                <div className="col col-md-2 d-flex justify-content-end">
+                    <button className='btn btn-outline-primary' id='view-admin-refresh' onClick={handleRefresh}><i className="fas fa-arrows-rotate"></i></button>
                     <button className='btn btn-outline-danger ms-4' onClick={handlePress}><i className="fas fa-door-open"></i></button>
                 </div>
             </div>
             
-            <div className="row d-flex justify-content-center align-items-center mb-5">
+            <div className="row d-flex justify-content-center align-items-base mb-4">
 
-                <div className="col-2">
+                <div className="col-sm-2 col">
                     <label className='form-label'>Maneja el HACKATON:</label>
                     <select className='form-select' name=""  onChange={handleHKTChange}>
                         <option hidden value="">Selecciona el Evento</option>
@@ -109,21 +110,21 @@ function View_Admin(props) {
                 </div>
                 
 
-               <div className="col-2 mt-4">
-                    <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#modal-form-organizador"><i className="fa-solid fa-circle-plus"></i> Nuevo Hackatón</button>
+               <div className="col-2 d-sm-block d-none">
+                    <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#modal-form-organizador"><i className="fa-solid fa-plus"></i> Hackatón</button>
                 </div>
             </div>
 
             {hkt && <div className="row">
 
 
-                <div className=" d-flex align-items-start justify-content-between">
+                <div className="flex-column flex-sm-row d-flex align-items-start justify-content-between">
                     {/* MENÚ DE NAVEGACIÓN */}
                     <nav>
-                        <div className="nav col-1 flex-sm-column flex-row nav-pills bg-light  me-2 rounded" id="nav-tab" role="tablist">
-                            <button className="nav-link active" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0'>Participantes</p></button>
+                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded" id="nav-tab" role="tablist">
+                            <button className="nav-link active" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0'>Usuarios</p></button>
 
-                            <button className="nav-link" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar"></i> <p className="m-0">Eventos</p></button>
+                            <button className="nav-link" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0">Eventos</p></button>
 
                             <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0">Blog WEB</p></button>
 
@@ -136,7 +137,7 @@ function View_Admin(props) {
                         </div>
                     </nav>
                     {/* CONTENIDO DE LAS PESTAÑAS */}
-                    <div className="tab-content col-11 bg-light rounded p-4" id="nav-tabContent">
+                    <div className="tab-content col-sm-11 col-12 bg-light rounded p-4" id="nav-tabContent">
                         {/* USUARIOS */}
                         <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
@@ -155,9 +156,41 @@ function View_Admin(props) {
                                 {/* <div className="col-12 col-md-8">
                                     <Calendar event={hkt}></Calendar>
                                 </div> */}
-                                <div className="col-12 col-12">
-                                    <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
+                                <div className="col-12">
+                                    <hr className='d-block d-md-none' />
+                                    <nav className='nav nav-pills mb-4'>
+                                        <button
+                                            className="nav-link py-1 active"
+                                            id="nav-1-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#view-1"
+                                        >
+                                            <i className="fa-solid fa-list-ul me-1"></i> <p>Lista</p>
+                                        </button>
+                                        <button
+                                            className="nav-link py-1"
+                                            id="nav-2-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#view-2"
+                                        >
+                                           <i className="fa-solid fa-calendar me-1"></i> <p>Calendario</p>
+                                        </button>
+
+                                    </nav>
+
+                                    
+
+                                    <div className="tab-content">
+                                        <div className="tab-pane fade show active" id="view-1">
+                                        <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
+                                        </div>
+                                        <div className="tab-pane fade show" id="view-2">
+                                        <CalendarChart event={hkt} dummy={dummy} role={props.user.role}></CalendarChart>
+                                        </div>
+                                    </div>
                                 </div>
+
+                               
                                 {/* <div className="col-12 col-md-3">
                                     <CalendarForm event={hkt}></CalendarForm>
                                 </div> */}
@@ -251,10 +284,10 @@ function View_Admin(props) {
                                     <p className="small">(Todos los HKT)</p>
                                 </div>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-12 col-md-6">
                                     <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41b25-de36-4308-8946-e1891793957f&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-12 col-md-6">
                                     <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41d28-7a1a-4001-8a30-34b2a9d4a1f0&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
                                     </div>
                                 </div>
@@ -271,7 +304,7 @@ function View_Admin(props) {
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <p className="modal-title h5" id="staticBackdropLabel">Nuevo Organizador</p>
+                            <p className="modal-title h5" id="staticBackdropLabel">Crear Organizador</p>
                             <button type="button" className="btn-close cerrar-modal-org" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
