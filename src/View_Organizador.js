@@ -6,6 +6,7 @@ import PostTable from './Components/PostTable'
 import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
 import BlogTable from './Components/BlogTable'
+import DashBoard from './DashBoard'
 
 
 
@@ -106,30 +107,30 @@ function View_Organizador(props) {
 
                 <div className="flex-column flex-sm-row d-flex align-items-start justify-content-between">
                     {/* MENÚ DE NAVEGACIÓN */}
-                    <nav>
-                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded" id="nav-tab" role="tablist">
-                            <button className="nav-link active" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0'>Usuarios</p></button>
+                    <nav className='w-100'>
+                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded justify-content-evenly" id="nav-tab" role="tablist">
+                            <button className="nav-link" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0 d-none d-sm-block'>Usuarios</p></button>
 
-                            <button className="nav-link" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0">Eventos</p></button>
+                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
 
                             {/* <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0">Blog WEB</p></button> */}
 
-                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0">Blog HKT</p></button>
+                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0 d-none d-sm-block">Blog HKT</p></button>
 
-                            <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0">Entregas</p></button>
+                            <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0 d-none d-sm-block">Entregas</p></button>
 
-                            <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0">DashBoard</p></button>
+                            <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0 d-none d-sm-block">DashBoard</p></button>
 
                         </div>
                     </nav>
                     {/* CONTENIDO DE LAS PESTAÑAS */}
                     <div className="tab-content col-sm-11 col-12 bg-light rounded p-4" id="nav-tabContent">
                         {/* USUARIOS */}
-                        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
+                        <div className="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
                     
                                 <div className="col-12">
-                                    <UserTable event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
+                                    <UserTable user={props.user} event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
                                 </div>
                                 {/* <div className="col-12 col-md-3">
                                     <UserForm event={hkt}></UserForm>
@@ -137,16 +138,16 @@ function View_Organizador(props) {
                             </div>
                         </div>
                         {/* CALENDARIO */}
-                        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
-                            <div className="row py-4 d-flex justify-content-between">
+                        <div className="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
+                            <div className="row pb-4 d-flex justify-content-between">
                                 {/* <div className="col-12 col-md-8">
                                     <Calendar event={hkt}></Calendar>
                                 </div> */}
                                 <div className="col-12">
-                                    <hr className='d-block d-md-none' />
+                                    
                                     <nav className='nav nav-pills mb-4'>
                                         <button
-                                            className="nav-link py-1 active"
+                                            className="nav-link py-1 "
                                             id="nav-1-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-1"
@@ -154,7 +155,7 @@ function View_Organizador(props) {
                                             <i className="fa-solid fa-list-ul me-1"></i> <p>Lista</p>
                                         </button>
                                         <button
-                                            className="nav-link py-1"
+                                            className="nav-link py-1 active"
                                             id="nav-2-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-2"
@@ -167,10 +168,10 @@ function View_Organizador(props) {
                                     
 
                                     <div className="tab-content">
-                                        <div className="tab-pane fade show active" id="view-1">
+                                        <div className="tab-pane fade show " id="view-1">
                                         <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
                                         </div>
-                                        <div className="tab-pane fade show" id="view-2">
+                                        <div className="tab-pane fade show active" id="view-2">
                                         <CalendarChart event={hkt} dummy={dummy} role={props.user.role}></CalendarChart>
                                         </div>
                                     </div>
@@ -265,17 +266,8 @@ function View_Organizador(props) {
                         <div className="tab-pane fade" id="nav-dash" role="tabpanel" aria-labelledby="nav-dash-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
                              
-                                <div className="col-12 mb-4">
-                                    <p className="h3">DashBoard</p>
-                                    <p className="small">(Todos los HKT)</p>
-                                </div>
-                                <div className="row">
-                                    <div className="col-12 col-md-6">
-                                    <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41b25-de36-4308-8946-e1891793957f&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                    <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41d28-7a1a-4001-8a30-34b2a9d4a1f0&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
-                                    </div>
+                            <div className="">
+                                    <DashBoard hkt={hkt} dummy={dummy} empresas={empresasOptions}></DashBoard>
                                 </div>
                             </div>
                         </div>

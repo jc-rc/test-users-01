@@ -84,13 +84,14 @@ function UserForm(props) {
 
    fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}`,
         {method:"POST"})
-        .then(response => response? alert("User Created"): null)
+        .then(response => response.json())
+        .then(response => response.error ? alert("ERROR, Usuario o Correo ya registrados"): alert("Usuario Creado"))
         .then( document.getElementById("userForm").reset())
         .then(setForm({hkt: props.event}))
         .then( document.querySelector(".cerrar-modal").click())
         .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
-        }, 3000) )
+        }, 1500) )
 
     }
 
@@ -126,7 +127,7 @@ function UserForm(props) {
                 <input type="tel" name="" className='form-control' required onChange={handleTelChange} maxLength={10} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' />
             </div>
             <div className="mb-3">
-                <label className='form-label' htmlFor="">Role:</label>
+                <label className='form-label' htmlFor="">Rol:</label>
                 <select className='form-select' name="" required onChange={handleRoleChange}>
                     <option hidden value="">Selecciona el Rol</option>
                     <option value="ORGANIZADOR">ORGANIZADOR</option>

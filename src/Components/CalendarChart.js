@@ -61,7 +61,7 @@ const handleLoad = (e)=>{
 
     <div className="p-0">
         <FullCalendar
-        
+            className= "show"
             plugins={[ dayGridPlugin, listPlugin, timeGridPlugin, interactionPlugin]}
             initialView = "dayGridMonth"
             

@@ -35,7 +35,7 @@ function UserFormOrganizador(props) {
     }
     const handleSubmit = (e)=>{
         e.preventDefault()
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}`,
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=HKT_${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}&aprobado=1`,
         {method:"POST"})
         .then(response => response? alert("User Created"): null)
         .then( document.getElementById("form-organizador").reset())
@@ -43,7 +43,7 @@ function UserFormOrganizador(props) {
         .then( document.querySelector(".cerrar-modal-org").click())
         .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
-        }, 3000) )
+        }, 1500) )
     }
     const handleReset = (e)=>{
         setForm({

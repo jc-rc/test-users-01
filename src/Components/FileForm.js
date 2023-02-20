@@ -64,7 +64,7 @@ function FileForm(props) {
               </div>
             </div>
               <div className="col-12 mb-3">
-                <button className="btn btn-primary float-end" disabled={new Date().toDateString() === new Date(fechaL.fechaI).toDateString()} onClick={handleUpload}>Cargar</button>
+                <button className="btn btn-primary float-end" disabled={new Date() > new Date(fechaL.fechaI)} onClick={handleUpload}>Cargar</button>
                 </div>
     </div>
         

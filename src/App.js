@@ -64,7 +64,7 @@ function App() {
               <hr />
             </div>
             <div className="mb-3">
-              <label htmlFor="">Usuario</label>
+              <label htmlFor="">Email</label>
               <input name="username" type="text" onChange={handleUsernameChange} className="form-control" required />
 
             </div>

@@ -32,7 +32,7 @@ const handleDeleteButton = (post)=>{
        .then(response => response.status <300 ? alert(`Se eliminó el post: ${post.título}, con id: ${post._id}`): alert("Algo salió mal..."))
        .then( setTimeout(() => {
         document.querySelector("#view-admin-refresh").click()
-    }, 3000) )
+    }, 1500) )
       
    }else{
        alert(`Se canceló la operación.`)
@@ -78,7 +78,7 @@ const handleDeleteButton = (post)=>{
                     <button className="btn btn-outline-danger w-100" onClick={()=> handleDeleteButton(post)}><i className="fa-solid fa-trash-can"></i></button></div>
               </div>
 
-              <div className="row rounded list-group-item d-flex d-md-none align-items-center justify-content-center p-1" id={post._id} key={key} >
+              <div className="row rounded list-group-item d-flex d-md-none align-items-center justify-content-center p-1" id={post._id} key={key+1} >
                 <div className="col-6 mb-2">
                 <p className='small fw-bold m-0'data-bs-toggle="modal" data-bs-target="#modal-detail-post" onClick={()=> handleEditButton(post)}>{post.título}</p>
                 </div>

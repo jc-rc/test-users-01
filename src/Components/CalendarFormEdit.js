@@ -56,7 +56,7 @@ function CalendarFormEdit(props) {
         
        .then( fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/sortEvents?_id=${form._id}`))
        .then( document.querySelector(".cerrar-modal-calendar-edit").click())
-       .then( setTimeout(() => {document.querySelector("#view-admin-refresh").click()}, 3000) ) 
+       .then( setTimeout(() => {document.querySelector("#view-admin-refresh").click()}, 1500) ) 
    
         
         

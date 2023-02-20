@@ -114,7 +114,7 @@ useEffect(() => {
             .then(document.querySelector(".cerrar-modal-retador").click())
             .then(setTimeout(() => {
                 document.querySelector("#view-admin-refresh").click()
-            }, 3000))
+            }, 1500))
 
     }
 

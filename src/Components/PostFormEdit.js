@@ -33,7 +33,7 @@ function PostFormEdit(props) {
          .then( document.querySelector(".cerrar-modal-post-edit").click())
          .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
-        }, 3000) )
+        }, 1500) )
     }
     const handleReset = ()=>{
         setForm({

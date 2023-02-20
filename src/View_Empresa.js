@@ -107,17 +107,17 @@ function View_Empresa(props) {
 
                 <div className="flex-column flex-sm-row d-flex align-items-start justify-content-between">
                     {/* MENÚ DE NAVEGACIÓN */}
-                    <nav>
-                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded" id="nav-tab" role="tablist">
+                    <nav className='w-100'>
+                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded justify-content-evenly" id="nav-tab" role="tablist">
                             {/* <button className="nav-link " id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0'>Usuarios</p></button> */}
 
-                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0">Eventos</p></button>
+                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
 
                             {/* <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0">Blog WEB</p></button> */}
 
-                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0">Blog</p></button>
+                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0 d-none d-sm-block">Blog</p></button>
 
-                            <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0">Entregas</p></button>
+                            <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0 d-none d-sm-block">Entregas</p></button>
 
                             {/* <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0">DashBoard</p></button> */}
 
@@ -240,18 +240,7 @@ function View_Empresa(props) {
                         <div className="tab-pane fade" id="nav-dash" role="tabpanel" aria-labelledby="nav-dash-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
                              
-                                <div className="col-12 mb-4">
-                                    <p className="h3">DashBoard</p>
-                                    <p className="small">(Todos los HKT)</p>
-                                </div>
-                                <div className="row">
-                                    <div className="col-12 col-md-6">
-                                    <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41b25-de36-4308-8946-e1891793957f&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                    <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41d28-7a1a-4001-8a30-34b2a9d4a1f0&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 

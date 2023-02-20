@@ -37,7 +37,7 @@ function PostList(props) {
                                     <p className="card-title h5 mb-2">{post.título}</p>
                                     <p className='small m-0'>{post.autor}</p>
                                     <p className="card-text small mb-3 fst-italic"><span className="badge text-bg-warning">{new Date(post.fecha).toLocaleString().slice(0, -3)}</span></p>
-                                    <p className="card-text small text-truncate">{post.contenido}</p>
+                                    <p className="card-text small">{post.contenido}</p>
                                 </div>
                             </div>
                         </div>

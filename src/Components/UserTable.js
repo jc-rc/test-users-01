@@ -36,7 +36,7 @@ function UserTable(props) {
             .then(response => response.status <300 ? alert(`Se eliminó el usuario: ${user.username}, con id: ${user._id}`): alert("Algo salió mal..."))
             .then( setTimeout(() => {
                 document.querySelector("#view-admin-refresh").click()
-            }, 3000) )
+            }, 1500) )
             
         }else{
             alert(`Se canceló la operación.`)
@@ -46,7 +46,7 @@ function UserTable(props) {
     const handleAprobar = (user)=>{
         
 
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/updateUser?_id=${user._id}&username=${user.username}&password=${user.password}&role=${user.role}&hkt=${user.hkt}&team1=${user.team1}&team2=${user.team2}&team3=${user.team3}&team4=${user.team4}&team5=${user.team5}&empresa_ret=${user.empresa_ret}&email=${user.email}&tel=${user.tel}`,
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/aprobarUser?_id=${user._id}`,
         {method:"PUT"})
         .then(response => response? alert("Usuario Aprobado"): null)
         
@@ -108,7 +108,7 @@ function UserTable(props) {
                                         <i className="fa-solid fa-trash-can"></i></button></div>
                                 </div>
 
-                                <div className="row rounded list-group-item d-flex d-md-none align-items-center justify-content-center p-1" id={user._id} key={key}>
+                                <div className="row rounded list-group-item d-flex d-md-none align-items-center justify-content-center p-1" id={user._id} key={key+1}>
                                         <div className="col-6">
                                             <p className='small fw-bold m-0'>{user.username}</p>
                                             </div>
@@ -166,7 +166,7 @@ function UserTable(props) {
                         }
                         return (
                             <div className="">
-                                <div className="row list-group-item p-1 d-none d-md-flex align-items-center justify-content-center" id={user._id} key={key} >
+                                <div className="row list-group-item p-1 d-none d-md-flex align-items-center justify-content-center" id={user._id} key={key+2} >
                                     <div className="col-md col-7 mb-2"><a className="m-0 btn btn-outline-secondary text-start" role={"button"} data-bs-toggle="modal" data-bs-target="#modal-detail-user" onClick={()=> handleEditButton(user)}>{user.username}</a></div>
                                     <div className="col-md col-5 mb-2"><span className={"badge text-bg-" + badgeColor}>{user.role}</span></div>
                                     <div className="col-md col-7 mb-2"><p className="h6 m-0">{user.empresa_ret}</p></div>
@@ -182,7 +182,7 @@ function UserTable(props) {
                                         <i className="fa-solid fa-trash-can"></i></button></div>
                                 </div>
 
-                                <div className="row rounded list-group-item d-flex d-md-none align-items-center justify-content-center p-1" id={user._id} key={key}>
+                                <div className="row rounded list-group-item d-flex d-md-none align-items-center justify-content-center p-1" id={user._id} key={key+3}>
                                         <div className="col-6">
                                             <p className='small fw-bold m-0'>{user.username}</p>
                                             </div>
@@ -242,7 +242,7 @@ function UserTable(props) {
                             <button type="button" className="btn-close cerrar-modal-edit" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <UserFormEdit event={props.event} initValues={userToSend} empresasOptions={props.empresasOptions}></UserFormEdit>
+                            <UserFormEdit user={props.user} event={props.event} initValues={userToSend} empresasOptions={props.empresasOptions}></UserFormEdit>
                         </div>
 
                     </div>

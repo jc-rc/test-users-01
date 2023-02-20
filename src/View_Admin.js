@@ -6,6 +6,7 @@ import PostTable from './Components/PostTable'
 import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
 import BlogTable from './Components/BlogTable'
+import DashBoard from './DashBoard'
 
 
 
@@ -14,7 +15,7 @@ function View_Admin(props) {
     const [hkt, setHkt] = useState("")
     const [dummy, setDummy] = useState(0)
     const [empresa, setEmpresa] = useState("")
-    
+
 
     useEffect(() => {
         fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
@@ -26,18 +27,18 @@ function View_Admin(props) {
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${hkt}`)
             .then(response => response.json())
             .then(data => setEmpresasOptions(data))
-    }, [hkt])
+    }, [hkt, dummy])
 
     useEffect(() => {
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getRetadoresOptions?empresa_ret=${empresa}&hkt=${hkt}`)
-        .then(response => response.json())
-        .then(data => setRetadorOptions(data))
-    }, [hkt, empresa])
+            .then(response => response.json())
+            .then(data => setRetadorOptions(data))
+    }, [hkt, dummy, empresa])
 
-    
+
 
     const [options, setOptions] = useState([])
-    
+
     const [empresasOptions, setEmpresasOptions] = useState([])
     const [retadorOptions, setRetadorOptions] = useState([])
     const [retador, setRetador] = useState()
@@ -47,11 +48,11 @@ function View_Admin(props) {
         document.location.reload()
     }
 
-    const handleRefresh = ()=>{
-        setDummy(dummy=> dummy + 1)
-        
+    const handleRefresh = () => {
+        setDummy(dummy => dummy + 1)
+
     }
-   
+
 
     const handleHKTChange = (e) => {
 
@@ -75,7 +76,7 @@ function View_Admin(props) {
 
     }
 
-   
+
 
 
     return (
@@ -94,13 +95,13 @@ function View_Admin(props) {
                     <button className='btn btn-outline-danger ms-4' onClick={handlePress}><i className="fas fa-door-open"></i></button>
                 </div>
             </div>
-            
-            <div className="row d-flex justify-content-center align-items-base mb-4">
+
+            <div className="row d-flex justify-content-center align-items-end mb-4">
 
                 <div className="col-sm-2 col">
                     <label className='form-label'>Maneja el HACKATON:</label>
-                    <select className='form-select' name=""  onChange={handleHKTChange}>
-                        <option hidden value="">Selecciona el Evento</option>
+                    <select className='form-select' name="" onChange={handleHKTChange}>
+                        <option value="">Selecciona el Evento</option>
                         {options.map((option, key) => {
                             return (
                                 <option key={key} value={option}>{option}</option>
@@ -108,9 +109,9 @@ function View_Admin(props) {
                         })}
                     </select>
                 </div>
-                
 
-               <div className="col-2 d-sm-block d-none">
+
+                <div className="col-2 d-sm-block d-none">
                     <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#modal-form-organizador"><i className="fa-solid fa-plus"></i> Hackatón</button>
                 </div>
             </div>
@@ -120,30 +121,31 @@ function View_Admin(props) {
 
                 <div className="flex-column flex-sm-row d-flex align-items-start justify-content-between">
                     {/* MENÚ DE NAVEGACIÓN */}
-                    <nav>
-                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded" id="nav-tab" role="tablist">
-                            <button className="nav-link active" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0'>Usuarios</p></button>
+                    <nav className='w-100'>
+                        <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded justify-content-evenly" id="nav-tab" role="tablist">
 
-                            <button className="nav-link" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0">Eventos</p></button>
+                            <button className="nav-link" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0 d-none d-sm-block'>Usuarios</p></button>
 
-                            <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0">Blog WEB</p></button>
+                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
 
-                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0">Blog HKT</p></button>
+                            <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0 d-none d-sm-block">Blog WEB</p></button>
 
-                            <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0">Entregas</p></button>
+                            <button className="nav-link" id="nav-contact-tab" data-bs-toggle="pill" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> <i className="fa-solid fa-comment"></i> <p className="m-0 d-none d-sm-block">Blog HKT</p></button>
 
-                            <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0">DashBoard</p></button>
+                            <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0 d-none d-sm-block">Entregas</p></button>
+
+                            <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0 d-none d-sm-block">DashBoard</p></button>
 
                         </div>
                     </nav>
                     {/* CONTENIDO DE LAS PESTAÑAS */}
                     <div className="tab-content col-sm-11 col-12 bg-light rounded p-4" id="nav-tabContent">
                         {/* USUARIOS */}
-                        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
+                        <div className="tab-pane fade  " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
-                    
+
                                 <div className="col-12">
-                                    <UserTable event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
+                                    <UserTable user={props.user} event={hkt} empresasOptions={empresasOptions} dummy={dummy}></UserTable>
                                 </div>
                                 {/* <div className="col-12 col-md-3">
                                     <UserForm event={hkt}></UserForm>
@@ -151,7 +153,7 @@ function View_Admin(props) {
                             </div>
                         </div>
                         {/* CALENDARIO */}
-                        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
+                        <div className="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
                                 {/* <div className="col-12 col-md-8">
                                     <Calendar event={hkt}></Calendar>
@@ -160,7 +162,7 @@ function View_Admin(props) {
                                     <hr className='d-block d-md-none' />
                                     <nav className='nav nav-pills mb-4'>
                                         <button
-                                            className="nav-link py-1 active"
+                                            className="nav-link py-1"
                                             id="nav-1-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-1"
@@ -168,29 +170,29 @@ function View_Admin(props) {
                                             <i className="fa-solid fa-list-ul me-1"></i> <p>Lista</p>
                                         </button>
                                         <button
-                                            className="nav-link py-1"
+                                            className="nav-link py-1 active"
                                             id="nav-2-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-2"
                                         >
-                                           <i className="fa-solid fa-calendar me-1"></i> <p>Calendario</p>
+                                            <i className="fa-solid fa-calendar me-1"></i> <p>Calendario</p>
                                         </button>
 
                                     </nav>
 
-                                    
+
 
                                     <div className="tab-content">
-                                        <div className="tab-pane fade show active" id="view-1">
-                                        <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
+                                        <div className="tab-pane fade show " id="view-1">
+                                            <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
                                         </div>
-                                        <div className="tab-pane fade show" id="view-2">
-                                        <CalendarChart event={hkt} dummy={dummy} role={props.user.role}></CalendarChart>
+                                        <div className="tab-pane fade show active" id="view-2">
+                                            <CalendarChart event={hkt} dummy={dummy} role={props.user.role}></CalendarChart>
                                         </div>
                                     </div>
                                 </div>
 
-                               
+
                                 {/* <div className="col-12 col-md-3">
                                     <CalendarForm event={hkt}></CalendarForm>
                                 </div> */}
@@ -201,8 +203,8 @@ function View_Admin(props) {
                             <div className="row d-flex justify-content-center my-3">
                                 <div className="col-md-6">
                                     <p>Empresa:</p>
-                                    <select className='form-select' name=""  onChange={handleEmpresaChange}>
-                                        <option  value="">Selecciona la Empresa</option>
+                                    <select className='form-select' name="" onChange={handleEmpresaChange}>
+                                        <option value="">Selecciona la Empresa</option>
                                         {empresasOptions.map((option, key) => {
                                             return (
                                                 <option key={key} value={option}>{option}</option>
@@ -229,7 +231,7 @@ function View_Admin(props) {
                                 <div className="col-md-6">
                                     <p>Empresa:</p>
                                     <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
-                                        <option  value="">Selecciona la Empresa</option>
+                                        <option value="">Selecciona la Empresa</option>
                                         {empresasOptions.map((option, key) => {
                                             return (
                                                 <option key={key} value={option}>{option}</option>
@@ -238,11 +240,11 @@ function View_Admin(props) {
                                     </select>
                                 </div>
                             </div>
-                           { empresa && <div className="row d-flex justify-content-center my-3">
+                            {empresa && <div className="row d-flex justify-content-center my-3">
                                 <div className="col-md-6">
                                     <p>Retador:</p>
                                     <select className='form-select' name="" id="" onChange={handleRetadorChange}>
-                                        <option  value="">Selecciona el Retador</option>
+                                        <option value="">Selecciona el Retador</option>
                                         {retadorOptions.map((option, key) => {
                                             return (
                                                 <option key={key} value={option}>{option}</option>
@@ -251,7 +253,7 @@ function View_Admin(props) {
                                     </select>
                                 </div>
                             </div>}
-                            {empresa && retador &&<div className="row py-4 d-flex justify-content-between">
+                            {empresa && retador && <div className="row py-4 d-flex justify-content-between">
                                 {/* <div className="col-12 col-md-8">
                                     <PostList event={hkt} empresa={empresa}></PostList>
                                 </div> */}
@@ -267,29 +269,21 @@ function View_Admin(props) {
                         {/* BLOG EXTERNO */}
                         <div className="tab-pane fade" id="nav-blog-web" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
-                                
+
                                 <div className="col-12 col-12">
                                     <BlogTable dummy={dummy}></BlogTable>
                                 </div>
-                                
+
                             </div>
                         </div>
 
                         {/* DASHBOARD */}
                         <div className="tab-pane fade" id="nav-dash" role="tabpanel" aria-labelledby="nav-dash-tab" tabIndex="0">
                             <div className="row py-4 d-flex justify-content-between">
-                             
-                                <div className="col-12 mb-4">
-                                    <p className="h3">DashBoard</p>
-                                    <p className="small">(Todos los HKT)</p>
-                                </div>
-                                <div className="row">
-                                    <div className="col-12 col-md-6">
-                                    <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41b25-de36-4308-8946-e1891793957f&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                    <iframe style={{}} width="100%" height="480" src="https://charts.mongodb.com/charts-tutorial-tlnug/embed/charts?id=63d41d28-7a1a-4001-8a30-34b2a9d4a1f0&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
-                                    </div>
+
+
+                                <div className="">
+                                    <DashBoard hkt={hkt} dummy={dummy} empresas={empresasOptions}></DashBoard>
                                 </div>
                             </div>
                         </div>
@@ -308,13 +302,13 @@ function View_Admin(props) {
                             <button type="button" className="btn-close cerrar-modal-org" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                           <UserFormOrganizador dummy={dummy}></UserFormOrganizador>
+                            <UserFormOrganizador dummy={dummy}></UserFormOrganizador>
                         </div>
 
                     </div>
                 </div>
             </div>
-            
+
 
 
 

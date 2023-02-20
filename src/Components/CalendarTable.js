@@ -92,7 +92,7 @@ function CalendarTable(props) {
                   </div>
                 </div>
 
-                <div className='list-group-item d-block d-md-none rounded' key={key}>
+                <div className='list-group-item d-block d-md-none rounded' key={key+1}>
                   <div className="row d-flex justify-content-center align-items-center">
                     <div className="col-8">
                       <p className={color + " small fw-bold m-0"}>{event.título}</p>

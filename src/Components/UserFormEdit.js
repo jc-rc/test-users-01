@@ -90,6 +90,9 @@ function UserFormEdit(props) {
     const handleTelChange = (e)=>{
         setForm({...form, tel: e.target.value});
     }
+    const handleHKTChange = (e)=>{
+        setForm({...form, hkt: e.target.value});
+    }
 
     const handleSubmit = (e)=>{
         e.preventDefault()
@@ -103,7 +106,7 @@ function UserFormEdit(props) {
         .then( document.querySelector(".cerrar-modal-edit").click())
         .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
-        }, 3000) )
+        }, 1500) )
         
 
     }
@@ -131,6 +134,11 @@ function UserFormEdit(props) {
   return (
     <div className="row">
         <form action="" id='userFormEdit' onSubmit={handleSubmit} onReset={handleReset}>
+
+            { props.user.role === "ADMIN" && <div className="mb-3">
+                <label className='form-label' htmlFor="">Hackathon:</label>
+                <input className='form-control' type="text" required onChange={handleHKTChange} maxLength={20} placeholder="Máx. 20 caracteres." id='ipt-hkt-edit' value={form.hkt} />
+            </div>}
             
             <div className="mb-3">
                 <label className='form-label' htmlFor="">Nombre:</label>

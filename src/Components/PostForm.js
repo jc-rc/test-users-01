@@ -40,7 +40,7 @@ function PostForm(props) {
         .then( document.querySelector(".cerrar-modal-post").click())
         .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
-        }, 3000) )
+        }, 1500) )
          
     }
 
