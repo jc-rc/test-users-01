@@ -40,7 +40,7 @@ function PostFormEdit(props) {
             _id: props.initValues._id, 
             hkt: props.event,
             autor: props.empresa,
-            fecha: "",
+            fecha: props.initValues.fecha,
             título: "",
             contenido: ""
         })

@@ -19,7 +19,7 @@ function PostForm(props) {
 
     const [form, setForm] = useState({
         autor: props.empresa,
-        fecha: `${currentDate}`,
+        fecha: date,
         título: "",
         contenido: "",
         hkt: props.event
@@ -55,7 +55,7 @@ function PostForm(props) {
     const handleReset = (e)=>{
         setForm({hkt: props.event,
             autor: props.empresa,
-            fecha: `${currentDate}`,
+            fecha: date,
             título: "",
             contenido: ""
         })
