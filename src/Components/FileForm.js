@@ -54,7 +54,7 @@ function FileForm(props) {
         <div className="col-12">
             <p className="h3 mb-3">Carga de Archivos</p>
             <p className="small m-0">Día de Entrega Final : <span className="fst-italic text-danger">{fechaL ? new Date(fechaL.fechaI).toLocaleDateString() : "No Definido"}</span></p>
-            <p className="small">Límite de Carga: <span className='fst-italic text-info'>{new Date(new Date(fechaL.fechaI).setDate(new Date(fechaL.fechaI).getDate()-1)).toLocaleDateString()} 23:59:59</span></p>
+            <p className="small">Límite de Carga: <span className='fst-italic text-info'>{new Date(new Date(fechaL.fechaI).setDate(new Date(fechaL.fechaI).getDate())).toLocaleDateString()} 23:59:59</span></p>
         </div>
         <div className="col-12 d-flex flex-column">
               <input type="file" className="form-control mb-3" name="" id="" accept="application/pdf" onChange={(e)=> setIptFile(e.target.files[0])}/>

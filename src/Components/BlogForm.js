@@ -49,15 +49,15 @@ function BlogForm(props) {
                 </div>
                 <div className="col-12 mb-3">
                     <label htmlFor="" className='form-label'>Título:</label>
-                    <input type="text" name="" onChange={handleTítulo} className="form-control" />
+                    <input type="text" name="" onChange={handleTítulo} required className="form-control" />
                 </div>
                 <div className="col-12 mb-3">
                     <label htmlFor="" className='form-label'>Autor:</label>
-                    <input type="text" name="" onChange={handleAutor} className="form-control" />
+                    <input type="text" name="" onChange={handleAutor}  requiredclassName="form-control" />
                 </div>
                 <div className="col-12 mb-3">
                     <label htmlFor="" className='form-label'>Contenido:</label>
-                    <textarea type="text" name="" style={{height: 200}} onChange={handleContenido} placeholder="Máx. 500 caracteres." maxLength={500} className="form-control" />
+                    <textarea type="text" name="" style={{height: 200}} required onChange={handleContenido} placeholder="Máx. 500 caracteres." maxLength={500} className="form-control" />
                 </div>
                 <div className="col-12 text-end">
                     <button className="btn btn-outline-danger me-2" type='reset'>Limpiar</button>

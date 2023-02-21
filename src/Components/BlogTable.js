@@ -63,7 +63,7 @@ function BlogTable(props) {
                                     <div className="card-body">
                                         <p className="h5 card-title mb-0">{post.título}</p>
                                         <p className="small fst-italic mb-0">Autor: {post.autor} </p>
-                                        <span className="badge text-bg-warning mb-3">{new Date(post.fecha).toLocaleString().slice(0, -3)}</span>
+                                        <span className="badge text-bg-warning mb-3">{new Date(post.fecha).toLocaleString().slice(0, -10)}</span>
                                         <p className="card-text small truncado">{post.contenido}</p>
                                         <button className='btn btn-sm btn-primary p-1'   data-bs-toggle="modal" data-bs-target="#modal-detalle-blog" onClick={()=>handleDetail(post)}>Ver más...</button>
                                     </div>
@@ -110,7 +110,7 @@ function BlogTable(props) {
                                 <div className="card-body">
                                     
                                     <p className="small fst-italic mb-0">Autor: {detail.autor} </p>
-                                    <span className="badge text-bg-warning mb-3">{new Date(detail.fecha).toLocaleString().slice(0, -3)}</span>
+                                    <span className="badge text-bg-warning mb-3">{new Date(detail.fecha).toLocaleString().slice(0, -10)}</span>
                                     <p className='card-text small'>{detail.contenido}</p>
                                 </div>
                             </div>

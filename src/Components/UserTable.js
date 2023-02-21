@@ -137,7 +137,7 @@ function UserTable(props) {
             {/* TABLA NO APROBADOS */}
             { dataNA.length > 0 && <div className="">
                 <div className="col-12 d-flex justify-content-between mb-4">
-                    <p className="h3">Participantes No-Aprobados</p>
+                    <p className="h3">Usuarios No-Aprobados</p>
                 </div>
                 <div className="row d-none d-md-flex p-2">
                     <div className="col fw-bold">Nombre</div>
