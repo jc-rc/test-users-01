@@ -34,7 +34,7 @@ function PostForm(props) {
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createPost?autor=${form.autor}&título=${form.título}&contenido=${form.contenido}&fecha=${form.fecha}&hkt=${form.hkt}`,
         {method: "POST"})
      .then((response)=> {
-        response? alert("Post Added") : alert("ERROR")
+        response? alert("Post Creado") : alert("ERROR")
     })
     .then( document.getElementById("postForm").reset())
         .then( document.querySelector(".cerrar-modal-post").click())

@@ -21,7 +21,8 @@ const [date, setDate] = useState()
  useEffect(() => {
 
     
-    
+    //CLICK Instantáneo
+    document.querySelector(".fc-dayGridMonth-button").click()
 
     
   fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/readEventsBy?hkt=${props.event}`)

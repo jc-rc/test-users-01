@@ -16,7 +16,7 @@ function BlogForm(props) {
         //CREATE POST
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createBlog?autor=${autor}&título=${título}&contenido=${contenido}&fecha=${fecha}&url=${url}`, { method: "POST" })
             .then(response => response.json())
-            .then(response => response ? alert("POST ADDED") : alert("ERROR"))
+            .then(response => response ? alert("Post Creado") : alert("ERROR"))
             .then(document.getElementById("form-blog").reset())
             .then(document.querySelector(".cerrar-modal-blog").click())
             .then(setTimeout(() => {

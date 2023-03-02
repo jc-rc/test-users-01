@@ -28,7 +28,7 @@ function PostFormEdit(props) {
 
          fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/updatePost?_id=${form._id}&hkt=${form.hkt}&autor=${form.autor}&fecha=${form.fecha}&título=${form.título}&contenido=${form.contenido}`,
          {method:"PUT"})
-         .then(response => response? alert("Post Modified"): null)
+         .then(response => response? alert("Post Editado"): null)
          .then( document.getElementById("postFormEdit").reset())
          .then( document.querySelector(".cerrar-modal-post-edit").click())
          .then( setTimeout(() => {

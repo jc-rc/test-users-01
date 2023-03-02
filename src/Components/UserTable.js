@@ -33,7 +33,7 @@ function UserTable(props) {
         if (confirmDelete) {
             fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/deleteUser?_id=${user._id}`,
             {method: "DELETE"})
-            .then(response => response.status <300 ? alert(`Se eliminó el usuario: ${user.username}, con id: ${user._id}`): alert("Algo salió mal..."))
+            .then(response => response.status <300 ? alert(`Usuario Eliminado`): alert("Algo salió mal..."))
             .then( setTimeout(() => {
                 document.querySelector("#view-admin-refresh").click()
             }, 1500) )

@@ -101,7 +101,7 @@ function UserFormEdit(props) {
 
    fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/updateUser?_id=${form._id}&username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&empresa_ret=${form.empresa_ret}&email=${form.email}&tel=${form.tel}`,
         {method:"PUT"})
-        .then(response => response? alert("User Modified"): null)
+        .then(response => response? alert("Usuario Editado"): null)
         .then( document.getElementById("userFormEdit").reset())
         .then( document.querySelector(".cerrar-modal-edit").click())
         .then( setTimeout(() => {

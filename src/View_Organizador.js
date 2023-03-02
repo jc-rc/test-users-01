@@ -111,7 +111,7 @@ function View_Organizador(props) {
                         <div className="nav col-sm-1 col-12 flex-sm-column flex-row nav-pills bg-light  me-2 rounded justify-content-evenly" id="nav-tab" role="tablist">
                             <button className="nav-link" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0 d-none d-sm-block'>Usuarios</p></button>
 
-                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
+                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" onClick={()=>{document.querySelector(".fc-dayGridMonth-button").click()}} role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
 
                             {/* <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0">Blog WEB</p></button> */}
 
@@ -151,6 +151,7 @@ function View_Organizador(props) {
                                             id="nav-1-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-1"
+                                            onClick={()=>{document.querySelector(".fc-dayGridMonth-button").click()}}
                                         >
                                             <i className="fa-solid fa-list-ul me-1"></i> <p>Lista</p>
                                         </button>
@@ -159,6 +160,7 @@ function View_Organizador(props) {
                                             id="nav-2-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-2"
+                                            onClick={()=>{document.querySelector(".fc-dayGridMonth-button").click()}}
                                         >
                                            <i className="fa-solid fa-calendar me-1"></i> <p>Calendario</p>
                                         </button>
@@ -172,6 +174,7 @@ function View_Organizador(props) {
                                         <CalendarTable event={hkt} dummy={dummy}></CalendarTable>
                                         </div>
                                         <div className="tab-pane fade show active" id="view-2">
+                                        <p className="h5">Eventos para: {hkt}</p>
                                         <CalendarChart event={hkt} dummy={dummy} role={props.user.role}></CalendarChart>
                                         </div>
                                     </div>

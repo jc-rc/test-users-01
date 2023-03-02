@@ -41,7 +41,7 @@ function FileForm(props) {
         uploadBytes(fileRef, iptFile)
         .then( )
         .then()
-        .then(alert("FILE ULPOADED"))
+        .then(alert("Archivo Cargado"))
         .then( setTimeout(() => {
             document.querySelector("#view-admin-refresh").click()
       }, 500) )

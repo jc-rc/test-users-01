@@ -126,7 +126,7 @@ function View_Admin(props) {
 
                             <button className="nav-link" id="nav-home-tab" data-bs-toggle="pill" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i className="fa-solid fa-user-gear"></i> <p className='m-0 d-none d-sm-block'>Usuarios</p></button>
 
-                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
+                            <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" onClick={()=>{document.querySelector(".fc-dayGridMonth-button").click()}} type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i className="fa-regular fa-calendar-days"></i> <p className="m-0 d-none d-sm-block">Eventos</p></button>
 
                             <button className="nav-link" id="nav-blog-tab" data-bs-toggle="pill" data-bs-target="#nav-blog-web" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-bullhorn"></i> <p className="m-0 d-none d-sm-block">Blog WEB</p></button>
 
@@ -166,6 +166,7 @@ function View_Admin(props) {
                                             id="nav-1-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-1"
+                                            onClick={()=>{document.querySelector(".fc-dayGridMonth-button").click()}}
                                         >
                                             <i className="fa-solid fa-list-ul me-1"></i> <p>Lista</p>
                                         </button>
@@ -174,6 +175,7 @@ function View_Admin(props) {
                                             id="nav-2-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#view-2"
+                                            onClick={()=>{document.querySelector(".fc-dayGridMonth-button").click()}}
                                         >
                                             <i className="fa-solid fa-calendar me-1"></i> <p>Calendario</p>
                                         </button>

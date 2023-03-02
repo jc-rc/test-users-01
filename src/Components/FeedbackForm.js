@@ -27,7 +27,7 @@ const handleSubmit = (e)=>{
     fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createFeedback?hkt=${hkt}&retador=${retador}&empresa=${empresa}&fecha=${fecha}&contenido=${contenido}`,
      {method: "POST"})
      .then(response=> response.json())
-     .then(response => response? alert("COMENTARIO ADDED") : alert("ERROR"))
+     .then(response => response? alert("Comentario Creado") : alert("ERROR"))
      .then( document.getElementById("postForm").reset())
         .then( document.querySelector(".cerrar-modal-feedback").click())
         .then( setTimeout(() => {

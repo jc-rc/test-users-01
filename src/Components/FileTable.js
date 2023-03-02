@@ -65,7 +65,7 @@ function FileTable(props) {
 
         if (window.confirm(`¿En realidad desea eliminar el archivo?`)) {
             deleteObject(deleteRef)
-                .then(alert("FILE DELETED"))
+                .then(alert("Archivo Eliminado"))
                 .then(setTimeout(() => {
                     document.querySelector("#view-admin-refresh").click()
                 }, 1500))
