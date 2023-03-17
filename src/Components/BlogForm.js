@@ -53,7 +53,7 @@ function BlogForm(props) {
                 </div>
                 <div className="col-12 mb-3">
                     <label htmlFor="" className='form-label'>Autor:</label>
-                    <input type="text" name="" onChange={handleAutor}  requiredclassName="form-control" />
+                    <input type="text" name="" onChange={handleAutor}  required className="form-control" />
                 </div>
                 <div className="col-12 mb-3">
                     <label htmlFor="" className='form-label'>Contenido:</label>

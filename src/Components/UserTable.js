@@ -91,7 +91,7 @@ function UserTable(props) {
                                 break;
                         }
                         return (
-                            <div className="">
+                            <div className="" key={key+2}>
                                 <div className="row list-group-item p-1 d-none d-md-flex align-items-center justify-content-center" id={user._id} key={key} >
                                     <div className="col-md col-7 mb-2"><a className="m-0 btn btn-outline-secondary text-start" role={"button"} data-bs-toggle="modal" data-bs-target="#modal-detail-user" onClick={()=> handleEditButton(user)}>{user.username}</a></div>
                                     <div className="col-md col-5 mb-2"><span className={"badge text-bg-" + badgeColor}>{user.role}</span></div>
@@ -165,7 +165,7 @@ function UserTable(props) {
                                 break;
                         }
                         return (
-                            <div className="">
+                            <div className="" key={key+5}>
                                 <div className="row list-group-item p-1 d-none d-md-flex align-items-center justify-content-center" id={user._id} key={key+2} >
                                     <div className="col-md col-7 mb-2"><a className="m-0 btn btn-outline-secondary text-start" role={"button"} data-bs-toggle="modal" data-bs-target="#modal-detail-user" onClick={()=> handleEditButton(user)}>{user.username}</a></div>
                                     <div className="col-md col-5 mb-2"><span className={"badge text-bg-" + badgeColor}>{user.role}</span></div>

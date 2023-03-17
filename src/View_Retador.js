@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import UserTable from './Components/UserTable'
-import CalendarTable from './Components/CalendarTable'
+
+
 import CalendarChart from './Components/CalendarChart'
-import PostTable from './Components/PostTable'
+
 import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
-import BlogTable from './Components/BlogTable'
+
 import PostList from './Components/PostList'
 import FileForm from './Components/FileForm'
 
@@ -18,30 +18,11 @@ function View_Retador(props) {
     const [empresa, setEmpresa] = useState(props.user.empresa_ret)
     
 
-    // useEffect(() => {
-    //     fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
-    //         .then(response => response.json())
-    //         .then(data => setOptions(data))
-    // }, [hkt, dummy])
 
-    useEffect(() => {
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${hkt}`)
-            .then(response => response.json())
-            .then(data => setEmpresasOptions(data))
-    }, [hkt])
-
-    useEffect(() => {
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getRetadoresOptions?empresa_ret=${empresa}&hkt=${hkt}`)
-        .then(response => response.json())
-        .then(data => setRetadorOptions(data))
-    }, [hkt, empresa])
 
     
-
-    const [options, setOptions] = useState([])
     
-    const [empresasOptions, setEmpresasOptions] = useState([])
-    const [retadorOptions, setRetadorOptions] = useState([])
+  
     const [retador, setRetador] = useState(props.user.username)
 
 
@@ -55,27 +36,6 @@ function View_Retador(props) {
     }
    
 
-    const handleHKTChange = (e) => {
-
-        setHkt(e.target.value)
-        setEmpresa("")
-        setRetador()
-
-
-    }
-    const handleEmpresaChange = (e) => {
-
-        setEmpresa(e.target.value)
-        setRetador()
-
-
-    }
-    const handleRetadorChange = (e) => {
-
-        setRetador(e.target.value)
-
-
-    }
 
    
 

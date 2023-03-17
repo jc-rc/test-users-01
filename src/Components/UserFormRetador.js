@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import SimpleCrypto from 'simple-crypto-js';
 
 function UserFormRetador(props) {
+    const simpleCrypto = new SimpleCrypto("accepted")
 
     useEffect(() => {
         setForm({ ...form, role: "RETADOR", aprobado: 0 })
@@ -10,11 +12,35 @@ function UserFormRetador(props) {
 
     const [hkt, setHkt] = useState([])
     const [empresasOptions, setEmpresasOptions] = useState([])
+   
 
 useEffect(() => {
-        fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
-            .then(response => response.json())
-            .then(data => setHkt(data))
+    
+
+    const fFetch = ()=>{
+      
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions?`)
+        .then(response => response.json())
+        .then(response=>
+           {
+            if(response === null){
+                setHkt([])
+            }else if(response.error){
+                console.log("Token Expiró, regenerando...");
+                setTimeout(() => {
+                    return fFetch()
+                }, 1500)
+                
+            }
+            else{
+                setHkt(response)
+            }
+        }
+            )
+    }
+
+    fFetch()
+       
             
     }, [])
 
@@ -139,84 +165,71 @@ useEffect(() => {
                         })}
                     </select>
                 </div>
-                <div className="col-12 mb-3">
-                    <label className='form-label' htmlFor="">Nombre:</label>
-                    <input className='form-control' type="text" required onChange={handleUsernameChange} maxLength={20} placeholder="Máx. 20 caracteres." />
-                </div>
-                <div className=" col-12 mb-3">
-                    <label className='form-label' htmlFor="">Contraseña:</label>
-                    <div className="input-group">
-                        <input className='form-control' type="password" id="pw" required onChange={handlePasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe incluir 1 número, 1 letra mayúscula, 1 letra minúscula; y al menos 8 caracteres" />
-                        <button className='btn' type='button' id='btn-eye' tabIndex={-1} onClick={setPasswordVisibility}>
-                            <span className="input-group-text" id="basic-addon1"><i id='eyecon' className="fas fa-eye-slash"></i></span>
-                        </button>
+                {form.hkt && <div className="">
+                    <div className="col-12 mb-3">
+                        <label className='form-label' htmlFor="">Nombre:</label>
+                        <input className='form-control' type="text" required onChange={handleUsernameChange} maxLength={20} placeholder="Máx. 20 caracteres." />
                     </div>
-                </div>
-                <div className="mb-3 col-12 row">
-                    <div className="col-6">
-                        <label htmlFor="" className="form-label">Correo:</label>
-                        <input type={"email"} className="form-control" required onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com' />
+                    <div className=" col-12 mb-3">
+                        <label className='form-label' htmlFor="">Contraseña:</label>
+                        <div className="input-group">
+                            <input className='form-control' type="password" id="pw" required onChange={handlePasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe incluir 1 número, 1 letra mayúscula, 1 letra minúscula; y al menos 8 caracteres" />
+                            <button className='btn' type='button' id='btn-eye' tabIndex={-1} onClick={setPasswordVisibility}>
+                                <span className="input-group-text" id="basic-addon1"><i id='eyecon' className="fas fa-eye-slash"></i></span>
+                            </button>
+                        </div>
                     </div>
-
-                    <div className="col-6">
-                    <label htmlFor="" className="form-label">Teléfono:</label>
-                    <input type="tel" name="" className='form-control' required onChange={handleTelChange} maxLength={10} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' />
-                </div>
-                </div>
-               
-                
-
-
-
-                <div className="mb-3">
-                    <label className='form-label' htmlFor="">Empresa Retada:</label>
-                    {/* <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} /> */}
-                     <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
-                        <option value="" hidden>Selecciona una Empresa...</option>
-                         {empresasOptions.map((option, key) => {
-                            return (
-                                <option value={option} key={key}>{option}</option>
-                            )
-                        })} 
-                    </select> 
-                </div>
-
-                
-                <div className="mb-3">
-
-                    <label className='form-label' htmlFor="">Equipo:</label>
-
-                    <div className="input-group mb-1">
-                        <span className="input-group-text">#1</span>
-                        <input className='form-control' type="text" id="0" placeholder='Líder del Equipo' onChange={handleTeam1Change} required/>
+                    <div className="mb-3 col-12 row">
+                        <div className="col-6">
+                            <label htmlFor="" className="form-label">Correo:</label>
+                            <input type={"email"} className="form-control" required onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com' />
+                        </div>
+                        <div className="col-6">
+                        <label htmlFor="" className="form-label">Teléfono:</label>
+                        <input type="tel" name="" className='form-control' required onChange={handleTelChange} maxLength={10} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' />
                     </div>
-                    <div className="input-group mb-1">
-                        <span className="input-group-text">#2</span>
-                        <input className='form-control' type="text" id="1" onChange={handleTeam2Change} />
                     </div>
-                    <div className="input-group mb-1">
-                        <span className="input-group-text">#3</span>
-                        <input className='form-control' type="text" id="2" onChange={handleTeam3Change} />
+                    
+                    <div className="mb-3">
+                        <label className='form-label' htmlFor="">Empresa Retada:</label>
+                        {/* <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} /> */}
+                         <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
+                            <option value="" hidden>Selecciona una Empresa...</option>
+                             {empresasOptions.map((option, key) => {
+                                return (
+                                    <option value={option} key={key}>{option}</option>
+                                )
+                            })}
+                        </select>
                     </div>
-                    <div className="input-group mb-1">
-                        <span className="input-group-text">#4</span>
-                        <input className='form-control' type="text" id="3" onChange={handleTeam4Change} />
+                    
+                    <div className="mb-3">
+                        <label className='form-label' htmlFor="">Equipo:</label>
+                        <div className="input-group mb-1">
+                            <span className="input-group-text">#1</span>
+                            <input className='form-control' type="text" id="0" placeholder='Líder del Equipo' onChange={handleTeam1Change} required/>
+                        </div>
+                        <div className="input-group mb-1">
+                            <span className="input-group-text">#2</span>
+                            <input className='form-control' type="text" id="1" onChange={handleTeam2Change} />
+                        </div>
+                        <div className="input-group mb-1">
+                            <span className="input-group-text">#3</span>
+                            <input className='form-control' type="text" id="2" onChange={handleTeam3Change} />
+                        </div>
+                        <div className="input-group mb-1">
+                            <span className="input-group-text">#4</span>
+                            <input className='form-control' type="text" id="3" onChange={handleTeam4Change} />
+                        </div>
+                        <div className="input-group mb-1">
+                            <span className="input-group-text">#5</span>
+                            <input className='form-control' type="text" id="4" onChange={handleTeam5Change} />
+                        </div>
+                        <hr />
                     </div>
-                    <div className="input-group mb-1">
-                        <span className="input-group-text">#5</span>
-                        <input className='form-control' type="text" id="4" onChange={handleTeam5Change} />
-                    </div>
-
-
-                    <hr />
-
-                </div>
-
-
-
-
-                <button className="btn btn-primary float-end" type='submit'>Crear</button>
-                <button className="btn btn-outline-danger me-3 float-end" type="reset">Limpiar</button>
+                    <button className="btn btn-primary float-end" type='submit'>Crear</button>
+                    <button className="btn btn-outline-danger me-3 float-end" type="reset">Limpiar</button>
+                </div>}
             </form>
         </div>
     )

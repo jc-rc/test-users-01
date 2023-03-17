@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import UserTable from './Components/UserTable'
-import CalendarTable from './Components/CalendarTable'
+
 import CalendarChart from './Components/CalendarChart'
 import PostTable from './Components/PostTable'
 import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
-import BlogTable from './Components/BlogTable'
-import PostList from './Components/PostList'
+
 
 
 
@@ -16,18 +14,7 @@ function View_Empresa(props) {
     const [dummy, setDummy] = useState(0)
     const [empresa, setEmpresa] = useState(props.user.username)
     
-
-    // useEffect(() => {
-    //     fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
-    //         .then(response => response.json())
-    //         .then(data => setOptions(data))
-    // }, [hkt, dummy])
-
-    useEffect(() => {
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${hkt}`)
-            .then(response => response.json())
-            .then(data => setEmpresasOptions(data))
-    }, [hkt])
+    
 
     useEffect(() => {
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getRetadoresOptions?empresa_ret=${empresa}&hkt=${hkt}`)
@@ -37,9 +24,7 @@ function View_Empresa(props) {
 
     
 
-    const [options, setOptions] = useState([])
     
-    const [empresasOptions, setEmpresasOptions] = useState([])
     const [retadorOptions, setRetadorOptions] = useState([])
     const [retador, setRetador] = useState()
 
@@ -54,21 +39,6 @@ function View_Empresa(props) {
     }
    
 
-    const handleHKTChange = (e) => {
-
-        setHkt(e.target.value)
-        setEmpresa("")
-        setRetador()
-
-
-    }
-    const handleEmpresaChange = (e) => {
-
-        setEmpresa(e.target.value)
-        setRetador()
-
-
-    }
     const handleRetadorChange = (e) => {
 
         setRetador(e.target.value)

@@ -82,7 +82,7 @@ function CalendarTable(props) {
 
             return (
 
-              <div className="">
+              <div className="" key={key+2}>
                 <div className='list-group-item d-none d-md-block' key={key}>
                   <div className="row">
                     <div className="col-3"><p className='m-0'>{new Date(event.fechaI).toLocaleString().slice(0, -3)}</p>{badge}</div>

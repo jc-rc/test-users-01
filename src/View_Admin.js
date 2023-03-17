@@ -7,10 +7,12 @@ import FileTable from './Components/FileTable'
 import UserFormOrganizador from './Components/UserFormOrganizador'
 import BlogTable from './Components/BlogTable'
 import DashBoard from './DashBoard'
+import SimpleCrypto from 'simple-crypto-js';
 
 
 
 function View_Admin(props) {
+    const simpleCrypto = new SimpleCrypto("accepted")
 
     const [hkt, setHkt] = useState("")
     const [dummy, setDummy] = useState(0)
@@ -18,21 +20,60 @@ function View_Admin(props) {
 
 
     useEffect(() => {
-        fetch("https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions")
-            .then(response => response.json())
-            .then(data => setOptions(data))
-    }, [hkt, dummy])
+        const cy1 = simpleCrypto.encrypt("secreto")
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions?s=${cy1}`)
+        .then(response => response.json())
+        .then(response=>
+           {
+            if(response === null){
+                setOptions([])
+            }else if (response.error){
+                console.log("Token Expiró, regenerando...");
+                document.querySelector("#view-admin-refresh").click()
+            }else{
+                setOptions(response)
+            }
+        }
+            )
+    }, [ dummy])
 
     useEffect(() => {
+        
+
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getEmpresasOptions?hkt=${hkt}`)
             .then(response => response.json())
-            .then(data => setEmpresasOptions(data))
+            .then(response=>
+                {
+                 if(response === null){
+                     setEmpresasOptions([])
+                 }else if (response.error){
+                     console.log("Token Expiró, regenerando...");
+                     document.querySelector("#view-admin-refresh").click()
+                 }else{
+                     setEmpresasOptions(response)
+                 }
+             }
+                 )
+            
     }, [hkt, dummy])
 
     useEffect(() => {
+      
         fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getRetadoresOptions?empresa_ret=${empresa}&hkt=${hkt}`)
             .then(response => response.json())
-            .then(data => setRetadorOptions(data))
+            .then(response=>
+                {
+                 if(response === null){
+                     setRetadorOptions([])
+                 }else if (response.error){
+                     console.log("Token Expiró, regenerando...");
+                     document.querySelector("#view-admin-refresh").click()
+                 }else{
+                     setRetadorOptions(response)
+                 }
+             }
+                 )
+            
     }, [hkt, dummy, empresa])
 
 

@@ -6,12 +6,17 @@ import View_Retador from './View_Retador';
 import View_Organizador from './View_Organizador';
 import UserFormRetador from './Components/UserFormRetador';
 import ChangePWForm from './Components/ChangePWForm';
+import SimpleCrypto from 'simple-crypto-js';
+
 
 function App() {
 
+  const simpleCrypto = new SimpleCrypto("accepted")
 
 
   const [currentUser, setCurrentUser] = useState(null)
+  const [dummy, setDummy] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [data, setData] = useState({
     username: "",
@@ -33,16 +38,32 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/validateUser?username=${data.username}&password=${data.password}`,
+    //KEY  
+    const cy1 = simpleCrypto.encrypt(`${data.username}`)
+    const cy2 = simpleCrypto.encrypt(`${data.password}`)
+
+
+    fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/validate2?arg1=${cy1}&arg2=${cy2}`,
       { method: "POST" })
+      .then(setIsLoading(true))
       .then(response => response.json())
       .then(response => {
+
+
         if (response === null) {
           setExists(false)
+          setIsLoading(false)
+        } else if (response.error) {
+          console.log("Token Expiró, regenerando...");
+          document.querySelector("#btn-login").click()
+
         } else {
           setExists(true)
           setCurrentUser(response)
+          setIsLoading(false)
         }
+
+
       })
 
 
@@ -55,11 +76,12 @@ function App() {
   return (
     <div className="container  p-4" style={{ maxWidth: 1500 }}>
       <div className="row ">
+        
         <div className="col-12 d-flex justify-content-center">
           {!currentUser ? <form action="" style={{ maxWidth: 600 }} className="border p-4 rounded d-block d-md-block" onSubmit={handleSubmit}>
 
             <div className="mb-4">
-              <div className="col text-center"><img src="./logo-ctvka.png" alt="" className='img-fluid m-3' style={{height: 150}}/></div>
+              <div className="col text-center"><img src="./logo-ctvka.png" alt="" className='img-fluid m-3' style={{ height: 150 }} /></div>
               <p className="h4 m-0 text-center">Portal Hackatón Empresarial</p>
               <hr />
             </div>
@@ -79,7 +101,14 @@ function App() {
               <p className='small m-0'>Verifica tu usuario y/o contraseña</p>
             </div> : null}
 
-            <button type="submit" className="btn btn-primary mb-4 w-100 naranja-ctvka">Ingresar</button>
+            {isLoading && <div className="alert alert-info text-center p-2">
+          <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="m-0 small fw-light fs-4">Autorizando...</p>
+        </div>}
+
+            <button type="submit" className="btn btn-primary mb-4 w-100 naranja-ctvka" id='btn-login'>Ingresar</button>
             <hr />
 
             <p className='small m-0 '>
@@ -92,15 +121,17 @@ function App() {
               ¿Problemas para ingresar? <a href="mailto:jcrc@sirius-tec.com">Contacta al Administrador</a>
             </p>
 
+            
+
           </form> : null}
 
         </div>
         <div className="col-12 d-block" id="admin">{currentUser && currentUser.role === "ADMIN" ? <View_Admin user={currentUser} /> : null}</div>
         <div className="col-12 d-block">{currentUser && currentUser.role === "EMPRESA" ? <View_Empresa user={currentUser} /> : null}</div>
         <div className="col-12 d-block">{currentUser && currentUser.role === "RETADOR" ? <View_Retador user={currentUser} /> : null}</div>
-        <div className="col-12 d-block">{currentUser && currentUser.role === "ORGANIZADOR" ? 
-           <View_Organizador user={currentUser} /> 
-          
+        <div className="col-12 d-block">{currentUser && currentUser.role === "ORGANIZADOR" ?
+          <View_Organizador user={currentUser} />
+
           : null}
         </div>
         {/* <div className="col-12 d-flex d-md-none">
@@ -124,7 +155,7 @@ function App() {
               <button type="button" className="btn-close cerrar-modal-retador" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <UserFormRetador />
+              <UserFormRetador dummy={dummy} />
             </div>
 
           </div>
@@ -140,7 +171,7 @@ function App() {
               <p className="modal-title h5" id="staticBackdropLabel">Cambiar Contraseña</p>
               <button type="button" className="btn-close cerrar-modal-contraseña" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-              <ChangePWForm></ChangePWForm>
+            <ChangePWForm></ChangePWForm>
 
           </div>
         </div>
