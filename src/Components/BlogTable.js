@@ -48,11 +48,11 @@ function BlogTable(props) {
             <div className="row d-flex">
 
 
-                {
+                { data.length === 0 ? <p className='h5'>¡No hay publicaciones en el Blog Web!</p> :
                     data.map((post, key) => {
 
                         let imageURL = ""
-                        post.url === "" ? imageURL = "./logo-ctvka.png" : imageURL = post.url
+                        post.url === "" ? imageURL = "./logo_vector.svg" : imageURL = post.url
 
                         return (
                             < div className="col-12 col-md-4 mb-md-3 mb-0 " key={key}>
@@ -106,7 +106,7 @@ function BlogTable(props) {
                       <div className="modal-body">
                           <div className="row">
                             <div className="col-12 card border-0">
-                                <img src={detail.url ||  "./logo-ctvka.png"} style={{ height:200, width: "100%", objectFit: "cover" }} alt="" className='card-img-top' loading='lazy'/>
+                                <img src={detail.url ||  "./logo_vector.svg"} style={{ height:200, width: "100%", objectFit: "cover" }} alt="" className='card-img-top' loading='lazy'/>
                                 <div className="card-body">
                                     
                                     <p className="small fst-italic mb-0">Autor: {detail.autor} </p>

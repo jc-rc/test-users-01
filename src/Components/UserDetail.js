@@ -40,7 +40,7 @@ function UserDetail(props) {
         
         {data.empresa_ret ?  <div className="row">
         <hr />
-            <div className="col-12 mb-2">Empresa Retadora:</div>
+            <div className="col-12 mb-2">Empresa Ret.:</div>
             <div className="col-6"><p className="h5">{data.empresa_ret}</p></div>
             <hr />
               <div className="col-12">

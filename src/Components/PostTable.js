@@ -57,7 +57,7 @@ const handleDeleteButton = (post)=>{
       </div>
       
     <div className="list-group">
-      { posts.length === 0 ? <p className="h4 mt-4">No hay posts de {props.empresa} en el evento: {props.event}</p> :
+      { posts.length === 0 ? <p className="h5 mt-4">¡No hay posts en el blog de {props.empresa}!</p> :
         posts.map((post, key)=>{
 
           return(

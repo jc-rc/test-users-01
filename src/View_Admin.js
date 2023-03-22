@@ -20,8 +20,8 @@ function View_Admin(props) {
 
 
     useEffect(() => {
-        const cy1 = simpleCrypto.encrypt("secreto")
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions?s=${cy1}`)
+        
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/getHKTOptions?`)
         .then(response => response.json())
         .then(response=>
            {
@@ -124,11 +124,12 @@ function View_Admin(props) {
         <div>
             <div className="row d-flex align-items-center justify-content-md-end justify-content-between mb-5">
                 <div className="col col-md-1">
-                    <div className="text-start"><img src="./logo-ctvka.png" alt="" className='img-fluid' style={{ height: 70 }} /></div>
+                    <div className="text-start"><img src="./logo_vector.svg" alt="" className='img-fluid' style={{ height: 70 }} /></div>
 
                 </div>
                 <div className="col col-md-9">
-                    <p className="h5 h-md-3">Portal {props.user.role}</p>
+                    <p className="h5 d-block d-md-none">Portal {props.user.role}</p>
+                    <p className="h3 d-none d-md-block">Portal {props.user.role}</p>
                 </div>
 
                 <div className="col col-md-2 d-flex justify-content-end">
@@ -176,6 +177,8 @@ function View_Admin(props) {
                             <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0 d-none d-sm-block">Entregas</p></button>
 
                             <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0 d-none d-sm-block">DashBoard</p></button>
+
+                            <button className="nav-link d-none d-sm-block" id="nav-docs-tab" data-bs-toggle="pill" data-bs-target="#nav-docs" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-info-circle"></i> <p className="m-0 d-none d-sm-block">Manuales</p></button>
 
                         </div>
                     </nav>
@@ -327,6 +330,24 @@ function View_Admin(props) {
 
                                 <div className="">
                                     <DashBoard hkt={hkt} dummy={dummy} empresas={empresasOptions}></DashBoard>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Manuales */}
+                        <div className="tab-pane fade" id="nav-docs" role="tabpanel" aria-labelledby="nav-dash-tab" tabIndex="0">
+                            <div className="row py-4 d-flex justify-content-between">
+
+
+                                <div className="">
+                                    <p className="h3 mb-4">Manuales de Usuario para {props.user.role}</p>
+                                   <ul>
+                                    <li><a href="./Manuales/Funciones Básicas 1 de  4.pdf" target={"_blank"}>Funciones Básicas 1 | Usuarios</a></li>
+                                    <li><a href="./Manuales/Funciones Básicas 2 de  4.pdf" target={"_blank"}>Funciones Básicas 2 | Blog HKT</a></li>
+                                    <li><a href="./Manuales/Funciones Básicas 3 de  4.pdf" target={"_blank"}>Funciones Básicas 3 | Eventos </a></li>
+                                    <li><a href="./Manuales/Funciones Básicas 4 de  4.pdf" target={"_blank"}>Funciones Básicas 4 | Entregas</a></li>
+                                    <li><a href="./Manuales/Demo 8 de 8.pdf" target={"_blank"}> Funciones Básicas 5 | Blog WEB</a></li>
+                                   
+                                   </ul>
                                 </div>
                             </div>
                         </div>

@@ -110,6 +110,10 @@ function UserForm(props) {
                 <input className='form-control' type="text" required onChange={handleUsernameChange} maxLength={20} placeholder="Máx. 20 caracteres."/>
             </div>
             <div className="mb-3">
+                <label htmlFor="" className="form-label">Correo:</label>
+                <input type={"email"} className="form-control" required onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com'/>
+            </div>
+            <div className="mb-3">
                 <label className='form-label' htmlFor="">Contraseña:</label>
                 <div className="input-group">
                     <input className='form-control' type="password" id="pw" required onChange={handlePasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe incluir 1 número, 1 letra mayúscula, 1 letra minúscula; y al menos 8 caracteres" />
@@ -118,10 +122,7 @@ function UserForm(props) {
                         </button>
                 </div>
             </div>
-            <div className="mb-3">
-                <label htmlFor="" className="form-label">Correo:</label>
-                <input type={"email"} className="form-control" required onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com'/>
-            </div>
+            
             <div className="mb-3">
                 <label htmlFor="" className="form-label">Teléfono:</label>
                 <input type="tel" name="" className='form-control' required onChange={handleTelChange} maxLength={10} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' />
@@ -142,7 +143,7 @@ function UserForm(props) {
                           <div className="mb-3">
                               <label className='form-label' htmlFor="">Empresa Retada:</label>
                               {/* <input className='form-control' id='empresa' type="text"  onChange={handleEmpresaChange} /> */}
-                              <select className='form-select' name="" id="" onChange={handleEmpresaChange}>
+                              <select className='form-select' name="" required title='Si no hay opciones de Empresa, asegúrate de crear / aprobar un usuario con rol "Empresa".' onChange={handleEmpresaChange}>
                                     <option value="" hidden>Selecciona una Empresa</option>
                                     {props.empresasOptions.map((option, key)=>{
                                         return(

@@ -43,12 +43,13 @@ function View_Retador(props) {
     return (
         <div>
             <div className="row d-flex align-items-center justify-content-md-end justify-content-between mb-4">
-                <div className="col col-md-3">
-                    <div className="text-start"><img src="./logo-ctvka.png" alt="" className='img-fluid' style={{ height: 70 }} /></div>
+                <div className="col col-md-1">
+                    <div className="text-start"><img src="./logo_vector.svg" alt="" className='img-fluid' style={{ height: 70 }} /></div>
 
                 </div>
-                <div className=" col d-none d-sm-block">
-                    <p className="h5 h-md-3">Portal {props.user.role}</p>
+                <div className=" col col-md-9 d-none d-sm-block">
+                <p className="h5 d-block d-md-none">Portal {props.user.role}</p>
+                 <p className="h3 d-none d-md-block">Portal {props.user.role}</p>
                 </div>
 
                 <div className="col col-md-2 d-flex justify-content-end">
@@ -81,6 +82,9 @@ function View_Retador(props) {
                             <button className="nav-link" id="nav-entregas-tab" data-bs-toggle="pill" data-bs-target="#nav-entregas" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-regular fa-folder-open"></i> <p className="m-0 d-none d-sm-block">Entregas</p></button>
 
                             {/* <button className="nav-link" id="nav-dash-tab" data-bs-toggle="pill" data-bs-target="#nav-dash" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-chart-simple"></i> <p className="m-0">DashBoard</p></button> */}
+
+                            <button className="nav-link d-none d-sm-block" id="nav-docs-tab" data-bs-toggle="pill" data-bs-target="#nav-docs" type="button" role="tab" aria-controls="nav-entregas" aria-selected="false"> <i className="fa-solid fa-info-circle"></i> <p className="m-0 d-none d-sm-block">Manuales</p></button>
+
 
                         </div>
                     </nav>
@@ -190,6 +194,25 @@ function View_Retador(props) {
                                 </div>
                             </div>
                         </div> */}
+                        {/* Manuales */}
+                        <div className="tab-pane fade" id="nav-docs" role="tabpanel" aria-labelledby="nav-dash-tab" tabIndex="0">
+                            <div className="row py-4 d-flex justify-content-between">
+
+
+                                <div className="">
+                                    <p className="h3 mb-4">Manuales de Usuario para {props.user.role}</p>
+                                   <ul>
+                                    
+                                    <li><a href="./Manuales/Funciones Básicas 2 de  4.pdf" target={"_blank"}>Funciones Básicas 2 | Blog HKT</a></li>
+                                    
+                                    <li><a href="./Manuales/Funciones Básicas 4 de  4.pdf" target={"_blank"}>Funciones Básicas 4 | Entregas</a></li>
+                                    <li><a href="./Manuales/Demo 7 de 8.pdf" target={"_blank"}>Funciones Básicas 6 | Entregas</a></li>
+                                    
+                                   
+                                   </ul>
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>

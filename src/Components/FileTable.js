@@ -104,7 +104,7 @@ function FileTable(props) {
 
                 <ul className="list-group">
 
-                    {links && data && meta &&
+                    {links.length === 0 ? <p className='h6'>No hay archivos...</p> :
 
                         links.map((link, key) => {
                             return (
@@ -140,7 +140,7 @@ function FileTable(props) {
                     <li className='list-group-item'>
                         <div className="row">
 
-                            {retroData.map((retro, key) => {
+                            {retroData.length === 0 ? <p className='h6'>No hay comentarios...</p> : retroData.map((retro, key) => {
 
                                 return (
                                     <div className="col-12 mb-0" key={key+1}>

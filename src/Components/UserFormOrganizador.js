@@ -94,6 +94,10 @@ function UserFormOrganizador(props) {
                     <input type="text" className="form-control" placeholder="CANACINTRA MOR" onChange={handleUsernameChange} maxLength={20} required/>
                 </div>
                 <div className="col-12 mb-3">
+                    <label htmlFor="" className="form-label">Correo:</label>
+                    <input type="email" className="form-control" placeholder='correo@dominio.com' onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com'/>
+                </div>
+                <div className="col-12 mb-3">
                     <label htmlFor="" className="form-label">Contraseña:</label>
                     <div className="input-group">
                     <input className='form-control' type="password" id="pw2" required onChange={handlePasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe incluir 1 número, 1 letra mayúscula, 1 letra minúscula; y al menos 8 caracteres" />
@@ -106,10 +110,7 @@ function UserFormOrganizador(props) {
                     <label htmlFor="" className="form-label">Teléfono:</label>
                     <input type="tel" className="form-control" placeholder='5512345678' onChange={handleTelChange} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' maxLength={10}/>
                 </div>
-                <div className="col-12 mb-3">
-                    <label htmlFor="" className="form-label">Correo:</label>
-                    <input type="email" className="form-control" placeholder='correo@dominio.com' onChange={handleEmailChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='Correo válido: ejemplo@dominio.com'/>
-                </div>
+                
                 <div className="col-12 text-end">
                     <button className="btn btn-outline-danger me-3" type='reset'>Limpiar</button>
                     <button className="btn btn-primary" type='submit'>Crear</button>
