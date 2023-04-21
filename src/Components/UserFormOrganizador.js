@@ -15,6 +15,11 @@ function UserFormOrganizador(props) {
         team5: "",
         email: "",
         tel: "",
+        repEmpresa: "",
+        pEmpresa: "",
+        rfcEmpresa: "",
+        repOrga: "",
+        pOrga: "",
         
     })
 
@@ -33,9 +38,16 @@ function UserFormOrganizador(props) {
     const handleEmailChange = (e)=>{
         setForm({...form, email: e.target.value})
     }
+    const handleRepOrga = (e)=>{
+        setForm({...form, repOrga: e.target.value});
+    }
+    const handlePOrga = (e)=>{
+        setForm({...form, pOrga: e.target.value});
+    }
+
     const handleSubmit = (e)=>{
         e.preventDefault()
-        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=HKT_${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}&aprobado=1`,
+        fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=HKT_${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}&repEmpresa=${form.repEmpresa}&pEmpresa=${form.pEmpresa}&rfcEmpresa=${form.rfcEmpresa}&repOrga=${form.repOrga}&pOrga=${form.pOrga}&aprobado=1`,
         {method:"POST"})
         .then(response => response? alert("Usuario Creado"): null)
         .then( document.getElementById("form-organizador").reset())
@@ -110,6 +122,15 @@ function UserFormOrganizador(props) {
                     <label htmlFor="" className="form-label">Teléfono:</label>
                     <input type="tel" className="form-control" placeholder='5512345678' onChange={handleTelChange} pattern="[0-9]{10}" title='Teléfono MX a 10 dígitos' maxLength={10}/>
                 </div>
+
+                <div className="mb-3">
+                <label htmlFor="" className='form-label'>Representante de la Delegación:</label>
+                <input type="text" className="form-control" required={form.role === "ORGANIZADOR"} onChange={handleRepOrga} />
+               </div>
+               <div className="mb-3">
+                <label htmlFor="" className='form-label'>Puesto:</label>
+                <input type="text" className="form-control" required={form.role === "ORGANIZADOR"} onChange={handlePOrga}/>
+               </div>
                 
                 <div className="col-12 text-end">
                     <button className="btn btn-outline-danger me-3" type='reset'>Limpiar</button>

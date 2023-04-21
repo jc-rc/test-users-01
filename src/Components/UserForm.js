@@ -20,6 +20,11 @@ function UserForm(props) {
         team5: "",
         email: "",
         tel: "",
+        repEmpresa: "",
+        pEmpresa: "",
+        rfcEmpresa: "",
+        repOrga: "",
+        pOrga: "",
 
     })
 
@@ -76,13 +81,28 @@ function UserForm(props) {
     const handleTelChange = (e)=>{
         setForm({...form, tel: e.target.value});
     }
+    const handleRepEmpresa = (e)=>{
+        setForm({...form, repEmpresa: e.target.value});
+    }
+    const handlePEmpresa = (e)=>{
+        setForm({...form, pEmpresa: e.target.value});
+    }
+    const handleRFCEmpresa = (e)=>{
+        setForm({...form, rfcEmpresa: e.target.value});
+    }
+    const handleRepOrga = (e)=>{
+        setForm({...form, repOrga: e.target.value});
+    }
+    const handlePOrga = (e)=>{
+        setForm({...form, pOrga: e.target.value});
+    }
 
     const handleSubmit = (e)=>{
         e.preventDefault()
        
         //Lógica de INSERTAR usuario en DB
 
-   fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}`,
+   fetch(`https://us-central1.gcp.data.mongodb-api.com/app/creativika-socba/endpoint/createUser?username=${form.username}&password=${form.password}&role=${form.role}&hkt=${form.hkt}&empresa_ret=${form.empresa_ret}&team1=${form.team1}&team2=${form.team2}&team3=${form.team3}&team4=${form.team4}&team5=${form.team5}&email=${form.email}&tel=${form.tel}&repEmpresa=${form.repEmpresa}&pEmpresa=${form.pEmpresa}&rfcEmpresa=${form.rfcEmpresa}&repOrga=${form.repOrga}&pOrga=${form.pOrga}`,
         {method:"POST"})
         .then(response => response.json())
         .then(response => response.error ? alert("ERROR, Usuario o Correo ya registrados"): alert("Usuario Creado"))
@@ -184,6 +204,37 @@ function UserForm(props) {
                       </div>
                       : null
             }
+
+            {form.role === "EMPRESA" && <div>
+                
+                
+               <div className="mb-3">
+                <label htmlFor="" className='form-label'>Representante de la Empresa:</label>
+                <input type="text" className="form-control" required={form.role === "EMPRESA"} onChange={handleRepEmpresa} />
+               </div>
+               <div className="mb-3">
+                <label htmlFor="" className='form-label'>Puesto en la Empresa:</label>
+                <input type="text" className="form-control" required={form.role === "EMPRESA"} onChange={handlePEmpresa}/>
+               </div>
+               <div className="mb-3">
+                <label htmlFor="" className='form-label'>RFC de la Empresa:</label>
+                <input type="text" className="form-control" required={form.role === "EMPRESA"} minLength={13} maxLength={13} pattern="[0-9A-Z]{13}" title='RFC válido; letras mayúsculas y números; 13 caracteres.'  onChange={handleRFCEmpresa}/>
+               </div>
+                
+                </div>}
+            {form.role === "ORGANIZADOR" && <div>
+                
+                
+               <div className="mb-3">
+                <label htmlFor="" className='form-label'>Representante de la Delegación:</label>
+                <input type="text" className="form-control" required={form.role === "ORGANIZADOR"} onChange={handleRepOrga} />
+               </div>
+               <div className="mb-3">
+                <label htmlFor="" className='form-label'>Puesto:</label>
+                <input type="text" className="form-control" required={form.role === "ORGANIZADOR"} onChange={handlePOrga}/>
+               </div>
+                               
+                </div>}
 
             <button className="btn btn-primary float-end" type='submit'>Crear</button>
             <button className="btn btn-outline-danger me-3 float-end" type="reset">Limpiar</button>

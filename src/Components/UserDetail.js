@@ -58,6 +58,27 @@ function UserDetail(props) {
                                </ul>
               </div>
         </div> : null}
+
+        {data.role === "ORGANIZADOR" && <div>
+            
+            <div className="col-12 mb-2">Representante:</div>
+            <div className="row">
+                <div className="col-6">{data.repOrga}</div>
+                <div className="col-6">{data.pOrga}</div>
+            </div>
+            
+            </div>}
+
+        {data.role === "EMPRESA" && <div>
+            
+            <div className="col-12 mb-2">Representante:</div>
+            <div className="row">
+                <div className="col-6">{data.repEmpresa}</div>
+                <div className="col-6">{data.pEmpresa}</div>
+                <div className="col-12">{data.rfcEmpresa}</div>
+            </div>
+            
+            </div>}
  
     </div>
   )
